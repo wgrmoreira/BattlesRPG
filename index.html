@@ -65,6 +65,7 @@ input::placeholder{color:#475569;}
 .combat-arena-hud{position:absolute;top:8px;left:5%;width:90%;background:rgba(15,23,42,0.85);border:2px solid var(--gba-gold);border-radius:6px;padding:6px 10px;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,0.5);}
 .combat-hud-row{display:flex;justify-content:space-between;align-items:center;font-size:8px;}
 .btn-shop-combat{position:absolute;right:5px;bottom:5px;padding:6px 8px!important;margin:0!important;font-size:10px;border-radius:8px!important;z-index:10;}
+.turn-display-combat{position:absolute;left:5px;bottom:5px;padding:6px 8px;font-size:7px;border-radius:6px;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);color:var(--gba-gold);text-shadow:1px 1px 0 #000;z-index:10;}
 
 #scene-description{position:absolute;left:5%;width:90%;font-size:8px;line-height:1.5;color:var(--gba-gold);text-align:center;margin:0;z-index:20;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);border-radius:6px;padding:6px;text-shadow:1px 1px 0 #000;transition:opacity 0.4s ease; top:48px; opacity: 1;}
 
@@ -123,7 +124,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         <div id="d20-result-text" style="display: none; font-size: 45px; text-shadow: 4px 4px 0 #000; font-weight: bold; text-align:center;"></div>
     </div>
 
-    <!-- TELA 1: SPLASH -->
+    <!-- TELA 1: SPLASH COM MÚSICA MELANCÓLICA -->
     <div id="screen-splash" class="screen active" onclick="handleSplashClick(event)">
         <div class="splash-logo-area">
             <h1>RPG BATTLES</h1>
@@ -160,9 +161,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
     <!-- TELA 3: PRINCIPAL DE JOGO -->
     <div id="screen-main" class="screen game-card">
-        <div style="position: relative; text-align: center;">
-            <h2 style="margin: 0; line-height: 2;">TURNO <span id="ui-turn">1</span> / 25</h2>
-        </div>
         
         <div class="stats-grid">
             <div class="stat-box">
@@ -212,6 +210,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             <img id="viewport-hero" src="" alt="Hero" onerror="this.style.display='none'">
             <img id="viewport-target" src="" alt="Target" style="display:none;" onerror="this.style.display='none'">
             
+            <div class="turn-display-combat">TURNO <span id="ui-turn">1</span> / 25</div>
             <button id="btn-shop-combat" class="btn-stone btn-shop-combat" onclick="openShopCombat()" style="display:none;"><i class="ra ra-pouch"></i> LOJA</button>
 
             <!-- TAUNT DO MONSTRO -->
@@ -322,7 +321,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         "cen_floresta2": { img: "assets/img/cen_floresta2.png" }
     };
 
-    // Fogo "🔥" inserido no lugar de "🪨"
     const tilePool = ["⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️", "🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️", "❤️","❤️","❤️","❤️","❤️", "🪙","🪙","🪙","🪙","🪙", "💧","💧", "🔥","🔥"]; 
 
     let player = { name: "", class: "knight", hp: 100, maxHp: 100, mp: 60, maxMp: 60, gold: 40, baseAtk: 10, baseDef: 2, potHp: 1, potMp: 1, avatarPath: "" };
@@ -341,7 +339,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     let bgmOsc = null;
     let bgmPlaying = false;
 
-    // Função auxiliar para exibir texto por 3s e apagar
     function showMessage(text) {
         const el = document.getElementById("scene-description");
         el.innerText = text;
