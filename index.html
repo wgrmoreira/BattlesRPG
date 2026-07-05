@@ -24,7 +24,7 @@ body{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/img
 #screen-splash{background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.5)),url('assets/img/open4.png') no-repeat center center;background-size:cover;position:relative;height:100%;width:100%;align-items:center;}
 .splash-logo-area{margin-top:40px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;position:relative;height:auto;min-height:120px;}
 .splash-logo-area h1{position:relative;z-index:2;font-size:24px;color:var(--gba-gold);text-shadow:3px 3px 0 #000;margin:100px 0 0 0;line-height:1.3;}
-.splash-text-container{flex-grow:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:60px;}
+.splash-text-container{flex-grow:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:50px;}
 .blink-text{font-size:9px;color:var(--gba-text-light);text-shadow:2px 2px 0 #000;text-align:center;letter-spacing:1px;animation:pulseFade 1.8s infinite ease-in-out;}
 @keyframes pulseFade{0%{opacity:0.1;}50%{opacity:1;}100%{opacity:0.1;}}
 .credits-text{font-size:6px;color:#cbd5e1;margin-bottom:15px;text-shadow:1px 1px 0 #000;text-align:center;line-height:1.5;}
@@ -64,7 +64,10 @@ input::placeholder{color:#475569;}
 
 .combat-arena-hud{position:absolute;top:8px;left:5%;width:90%;background:rgba(15,23,42,0.85);border:2px solid var(--gba-gold);border-radius:6px;padding:6px 10px;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,0.5);}
 .combat-hud-row{display:flex;justify-content:space-between;align-items:center;font-size:8px;}
-.btn-shop-combat{position:absolute;right:5px;bottom:5px;padding:6px 8px!important;margin:0!important;font-size:10px;border-radius:8px!important;z-index:10;}
+
+/* BOTÕES DENTRO DO VIEWPORT */
+#viewport-actions { position:absolute; right:5px; bottom:5px; display:flex; flex-direction:column; gap:4px; z-index:10; width:65px; }
+
 .turn-display-combat{position:absolute;left:5px;bottom:5px;padding:6px 8px;font-size:7px;border-radius:6px;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);color:var(--gba-gold);text-shadow:1px 1px 0 #000;z-index:10;}
 
 #scene-description{position:absolute;left:5%;width:90%;font-size:8px;line-height:1.5;color:var(--gba-gold);text-align:center;margin:0;z-index:20;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);border-radius:6px;padding:6px;text-shadow:1px 1px 0 #000;transition:opacity 0.4s ease; top:48px; opacity: 1;}
@@ -75,9 +78,6 @@ input::placeholder{color:#475569;}
 button{background:linear-gradient(180deg,#3b82f6,#1d4ed8);color:#fff;border:3px solid #1e40af;border-radius:8px;padding:14px;cursor:pointer;font-size:8px;text-transform:uppercase;margin:4px 2px;box-shadow:0 4px 0 #1e3a8a;transition:all 0.1s;text-shadow:1px 1px 0 #000;-webkit-tap-highlight-color: transparent;}
 button:active{transform:translateY(3px);box-shadow:0 1px 0 #1e3a8a;}
 button:disabled{background:#475569!important;color:#94a3b8!important;border-color:#334155!important;box-shadow:none;cursor:not-allowed;transform:none;text-shadow:none;}
-
-.explore-actions-row{display:flex;gap:6px;justify-content:space-between;margin-top:8px;width:100%;}
-.explore-actions-row button{margin:0;padding:12px 4px;font-size:7px;flex:1;text-align:center;background:linear-gradient(180deg,#4b5563,#1f2937);border-color:#111827;box-shadow:0 4px 0 #111827;}
 
 #panel-combat{position:relative;margin-top:0;width:100%;}
 #turn-banner{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:15px 30px;border-radius:8px;font-size:14px;font-weight:bold;color:#fff;text-shadow:2px 2px 0 #000;z-index:100;box-shadow:0 0 20px rgba(0,0,0,0.8);}
@@ -102,9 +102,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 .puzzle-floating-text{position:absolute;font-size:11px;font-weight:bold;color:#fff;text-shadow:2px 2px 0 #000;z-index:50;pointer-events:none;animation:floatUpAndFade 0.8s forwards ease-out;}
 @keyframes floatUpAndFade{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-40px);opacity:0;}}
 
-/* REDESIGN LOJA */
-.shop-hero-panel{display:flex;align-items:center;background:#0f172a;border:2px solid var(--gba-border);border-radius:8px;padding:8px;margin-bottom:12px;gap:10px;}
-.shop-hero-avatar-box{width:55px;height:55px;background:#fff;border-radius:6px;overflow:hidden;border:2px solid var(--gba-border);flex-shrink:0;}
+/* REDESIGN LOJA APRIMORADO */
+.shop-hero-panel{display:flex; flex-direction:column; align-items:stretch; background:#0f172a; border:2px solid var(--gba-border); border-radius:8px; padding:10px; margin-bottom:12px; gap:8px;}
+.shop-hero-avatar-box{width:65px;height:65px;background:#fff;border-radius:6px;overflow:hidden;border:2px solid var(--gba-border);flex-shrink:0;}
 .shop-item-card{display:flex;justify-content:space-between;align-items:center;background:#1f2937;border:2px solid var(--gba-border);border-radius:8px;padding:8px;margin-bottom:6px;}
 .shop-item-info{font-size:8px;line-height:1.5;} .shop-item-info div{color:#94a3b8;font-size:6px;margin-top:2px;}
 .shop-item-card button{margin:0;padding:10px 16px;min-width:75px;background:linear-gradient(180deg,#10b981,#059669);border-color:#047857;box-shadow:0 3px 0 #064e3b;}
@@ -124,7 +124,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         <div id="d20-result-text" style="display: none; font-size: 45px; text-shadow: 4px 4px 0 #000; font-weight: bold; text-align:center;"></div>
     </div>
 
-    <!-- TELA 1: SPLASH COM MÚSICA MELANCÓLICA -->
+    <!-- TELA 1: SPLASH COM MÚSICA MELANCÓLICA E RESET -->
     <div id="screen-splash" class="screen active" onclick="handleSplashClick(event)">
         <div class="splash-logo-area">
             <h1>RPG BATTLES</h1>
@@ -132,6 +132,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         </div>
         <div class="splash-text-container">
             <div class="blink-text">TOQUE PARA INICIAR</div>
+            <button class="btn-stone" onclick="resetGameData(event)" style="margin-top: 25px; padding: 10px 15px; font-size: 8px; z-index: 10;"><i class="fa fa-trash"></i> RESETAR DADOS</button>
         </div>
         <div class="credits-text">Desenvolvido por<br>wgrmoreira, Miguel e Maria</div>
     </div>
@@ -172,11 +173,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             </div>
             
             <div class="stat-box" style="border-left: 2px solid var(--gba-border); display: flex; flex-direction: column; padding-left: 4px;">
-                <!-- Ouro e Poções Movidos pra cá -->
                 <div style="font-size: 7px; color: var(--gba-gold); text-shadow:1px 1px 0 #000; text-align: right; margin-bottom: 6px; border-bottom: 1px dashed var(--gba-border); padding-bottom: 4px;">
                     <i class="ra ra-gold-bar"></i> <span id="ui-gold">40</span>G | H:<span id="ui-pot-hp">1</span> M:<span id="ui-pot-mp">1</span>
                 </div>
-                <!-- Barras Intercaladas -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                     <div>
                         <strong style="color: #60a5fa; font-size: 6.5px; text-shadow:1px 1px 0 #000;">ATK HERÓI: <span id="ui-round-atk-hero">0</span></strong>
@@ -211,7 +210,13 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             <img id="viewport-target" src="" alt="Target" style="display:none;" onerror="this.style.display='none'">
             
             <div class="turn-display-combat">TURNO <span id="ui-turn">1</span> / 25</div>
-            <button id="btn-shop-combat" class="btn-stone btn-shop-combat" onclick="openShopCombat()" style="display:none;"><i class="ra ra-pouch"></i> LOJA</button>
+            
+            <!-- BOTÕES EMPILHADOS NO CANTO DO VIEWPORT -->
+            <div id="viewport-actions" style="display:none; position:absolute; right:5px; bottom:5px; flex-direction:column; gap:4px; z-index:10; width:65px;">
+                <button class="btn-stone" onclick="usePotion('hp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-health" style="color:#22c55e"></i> CURA</button>
+                <button class="btn-stone" onclick="usePotion('mp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-potion" style="color:#3b82f6"></i> MANA</button>
+                <button class="btn-stone" onclick="openShopCombat()" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-pouch"></i> LOJA</button>
+            </div>
 
             <!-- TAUNT DO MONSTRO -->
             <div id="enemy-taunt-overlay" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('assets/img/duel.png') no-repeat center center; background-size: cover; z-index: 50; flex-direction: column; align-items: center; justify-content: center; padding: 10px;">
@@ -229,11 +234,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                     <span id="puzzle-moves-left">MOVS: 5</span>
                 </div>
                 <div class="puzzle-grid-board" id="combat-puzzle-board"></div>
-                
-                <div class="explore-actions-row">
-                    <button class="btn-stone" onclick="usePotion('hp')"><i class="ra ra-health" style="color:#22c55e"></i> USAR CURA</button>
-                    <button class="btn-stone" onclick="usePotion('mp')"><i class="ra ra-potion" style="color:#3b82f6"></i> USAR MANA</button>
-                </div>
             </div>
         </div>
     </div>
@@ -243,14 +243,23 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         <h1 style="margin-bottom: 6px;">MERCADOR</h1>
         
         <div class="shop-hero-panel">
-            <div class="shop-hero-avatar-box"><img id="shop-ui-avatar" src="" style="width:100%; height:100%; object-fit:contain; image-rendering:pixelated;"></div>
-            <div style="flex-grow:1; font-size:7px; line-height:1.6;">
-                <div style="color:var(--gba-gold); margin-bottom:4px;"><strong id="shop-ui-name">HERÓI</strong> <span class="class-tag" id="shop-ui-class">CLASSE</span></div>
-                <div>ATK: <span id="shop-ui-atk">0</span> | DEF: <span id="shop-ui-def">0</span></div>
-                <div style="display:flex; gap: 8px; margin-top:4px;">
-                    <div style="flex:1;"><div style="color:#22c55e; margin-bottom:2px;">HP:<span id="shop-txt-hp">100</span></div><div class="bar-container" style="height:4px; margin:0;"><div id="shop-bar-hp" class="bar-fill bar-hp"></div></div></div>
-                    <div style="flex:1;"><div style="color:#3b82f6; margin-bottom:2px;">MP:<span id="shop-txt-mp">60</span></div><div class="bar-container" style="height:4px; margin:0;"><div id="shop-bar-mp" class="bar-fill bar-mp"></div></div></div>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <div class="shop-hero-avatar-box"><img id="shop-ui-avatar" src="" style="width:100%; height:100%; object-fit:contain; image-rendering:pixelated;"></div>
+                <div style="flex-grow:1; font-size:8px; line-height:1.6;">
+                    <div style="color:var(--gba-gold); margin-bottom:4px;"><strong id="shop-ui-name">HERÓI</strong> <span class="class-tag" id="shop-ui-class">CLASSE</span></div>
+                    <div>ATK: <span id="shop-ui-atk">0</span> | DEF: <span id="shop-ui-def">0</span></div>
                 </div>
+            </div>
+            
+            <div style="display:flex; gap: 8px; margin-top:8px;">
+                <div style="flex:1;"><div style="color:#22c55e; margin-bottom:2px; font-size:7px;">HP:<span id="shop-txt-hp">100/100</span></div><div class="bar-container" style="height:12px; margin:0;"><div id="shop-bar-hp" class="bar-fill bar-hp"></div></div></div>
+                <div style="flex:1;"><div style="color:#3b82f6; margin-bottom:2px; font-size:7px;">MP:<span id="shop-txt-mp">60/60</span></div><div class="bar-container" style="height:12px; margin:0;"><div id="shop-bar-mp" class="bar-fill bar-mp"></div></div></div>
+            </div>
+
+            <!-- BOTÕES PARA USAR POÇÃO NA PRÓPRIA LOJA -->
+            <div style="display:flex; gap: 6px; margin-top:8px;">
+                <button class="btn-stone" onclick="usePotion('hp')" style="flex:1; padding:8px 4px; font-size:7px; margin:0;"><i class="ra ra-health" style="color:#22c55e"></i> USAR (<span id="shop-use-pot-hp">0</span>)</button>
+                <button class="btn-stone" onclick="usePotion('mp')" style="flex:1; padding:8px 4px; font-size:7px; margin:0;"><i class="ra ra-potion" style="color:#3b82f6"></i> USAR (<span id="shop-use-pot-mp">0</span>)</button>
             </div>
         </div>
 
@@ -338,6 +347,15 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     let audioCtx = null;
     let bgmOsc = null;
     let bgmPlaying = false;
+
+    function resetGameData(e) {
+        e.stopPropagation();
+        if(confirm("Deseja realmente apagar o seu progresso salvo e todos os recordes?")) {
+            localStorage.removeItem('rpgPocketSave');
+            localStorage.removeItem('rpgPocketHighScores');
+            location.reload();
+        }
+    }
 
     function showMessage(text) {
         const el = document.getElementById("scene-description");
@@ -475,7 +493,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         inCombat = true; 
         document.getElementById("viewport-hero").style.display = "none"; 
         document.getElementById("hud-enemy").style.display = "block"; 
-        document.getElementById("btn-shop-combat").style.display = "flex";
+        document.getElementById("viewport-actions").style.display = "flex";
         document.getElementById("panel-combat").style.display = "block";
         const targetImg = document.getElementById("viewport-target"); 
         targetImg.style.display = "block";
@@ -545,7 +563,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         inCombat = true; 
         document.getElementById("viewport-hero").style.display = "none"; 
         document.getElementById("hud-enemy").style.display = "block"; 
-        document.getElementById("btn-shop-combat").style.display = "flex";
+        document.getElementById("viewport-actions").style.display = "flex";
         document.getElementById("panel-combat").style.display = "block";
         const targetImg = document.getElementById("viewport-target"); 
         targetImg.style.display = "block";
@@ -877,7 +895,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("viewport-target").style.display = "none"; 
         document.getElementById("viewport-container").style.backgroundImage = "url('assets/img/win.png')"; 
         document.getElementById("viewport-hero").style.display = "block"; 
-        document.getElementById("btn-shop-combat").style.display = "none";
+        document.getElementById("viewport-actions").style.display = "none";
         showMessage(`VITÓRIA! Ouro coletado: +${drop}G`); 
         
         playVictorySound();
@@ -945,6 +963,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
             document.getElementById("shop-txt-hp").innerText = `${player.hp}/${player.maxHp}`; document.getElementById("shop-bar-hp").style.width = `${(player.hp / player.maxHp) * 100}%`;
             document.getElementById("shop-txt-mp").innerText = `${player.mp}/${player.maxMp}`; document.getElementById("shop-bar-mp").style.width = `${(player.mp / player.maxMp) * 100}%`;
+            
+            document.getElementById("shop-use-pot-hp").innerText = player.potHp;
+            document.getElementById("shop-use-pot-mp").innerText = player.potMp;
 
             if (inCombat && enemy) { 
                 document.getElementById("enemy-name").innerText = enemy.name; 
