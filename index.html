@@ -24,7 +24,7 @@ body{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/img
 #screen-splash{background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.5)),url('assets/img/open4.png') no-repeat center center;background-size:cover;position:relative;height:100%;width:100%;align-items:center;}
 .splash-logo-area{margin-top:40px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;position:relative;height:auto;min-height:120px;}
 .splash-logo-area h1{position:relative;z-index:2;font-size:24px;color:var(--gba-gold);text-shadow:3px 3px 0 #000;margin:100px 0 0 0;line-height:1.3;}
-.splash-text-container{flex-grow:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:50px;}
+.splash-text-container{flex-grow:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:60px;}
 .blink-text{font-size:9px;color:var(--gba-text-light);text-shadow:2px 2px 0 #000;text-align:center;letter-spacing:1px;animation:pulseFade 1.8s infinite ease-in-out;}
 @keyframes pulseFade{0%{opacity:0.1;}50%{opacity:1;}100%{opacity:0.1;}}
 .credits-text{font-size:6px;color:#cbd5e1;margin-bottom:15px;text-shadow:1px 1px 0 #000;text-align:center;line-height:1.5;}
@@ -32,7 +32,7 @@ body{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/img
 h2,h3{text-align:center;color:var(--gba-text-light);margin-top:0;font-size:10px;line-height:1.5;}
 hr{border:0;height:4px;background:var(--gba-border);margin:8px 0;box-shadow:0 2px 0 #000;}
 
-/* GRID INTERCALADO COM AS COLUNAS IGUAIS (1fr para esquerda e 2fr para direita que divide em 2) */
+/* GRID INTERCALADO COM AS COLUNAS IGUAIS */
 .stats-grid{display:grid;grid-template-columns:1fr 2fr;background:#1e293b;padding:10px;border:3px solid var(--gba-border);border-radius:8px;gap:6px;align-items:center;}
 .stat-box{font-size:8px;line-height:1.6;}
 .hero-header-line{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
@@ -60,18 +60,21 @@ input::placeholder{color:#475569;}
 #viewport-container.enemy-turn-border { border-color: #ef4444 !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.7); }
 
 #viewport-hero{position:absolute;bottom:10px;left:45px;width:32.5%;height:auto;image-rendering:pixelated;z-index:5;}
-#viewport-target{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:35%;height:auto;image-rendering:pixelated;z-index:6;}
+#viewport-target{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:35%;height:auto;image-rendering:pixelated;z-index:6; transition: transform 0.15s ease-in-out, filter 0.15s ease-in-out;}
+
+/* Animação Crítico Monstro (Dano >= 4) */
+.monster-crit-anim { transform: translateX(-50%) scale(1.2) !important; filter: drop-shadow(0 0 15px #ef4444); }
 
 .combat-arena-hud{position:absolute;top:8px;left:5%;width:90%;background:rgba(15,23,42,0.85);border:2px solid var(--gba-gold);border-radius:6px;padding:6px 10px;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,0.5);}
 .combat-hud-row{display:flex;justify-content:space-between;align-items:center;font-size:8px;}
 
-/* BOTÕES DENTRO DO VIEWPORT NO CANTO DIREITO INFERIOR */
 #viewport-actions { position:absolute; right:5px; bottom:5px; display:flex; flex-direction:column; gap:4px; z-index:10; width:65px; }
 
-.turn-display-combat{position:absolute;left:5px;bottom:5px;padding:6px 8px;font-size:7px;border-radius:6px;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);color:var(--gba-gold);text-shadow:1px 1px 0 #000;z-index:10;}
-
-/* INDICADOR DE JOGADAS EM QUADRADINHOS */
-.move-square { width: 8px; height: 8px; border: 1px solid #fff; border-radius: 2px; box-shadow: 1px 1px 0 #000; transition: background-color 0.3s; }
+/* CONTAINER DO INDICADOR DE TURNOS (Quadradinhos + Texto, mesmo tamanho) */
+.turn-display-wrapper { position:absolute; left:5px; bottom:5px; z-index:10; display:flex; flex-direction:column; gap:4px; width: 75px; }
+.moves-indicator { display:flex; gap:2px; width:100%; }
+.move-square { flex:1; height:6px; border:1px solid #fff; border-radius:2px; box-shadow:1px 1px 0 #000; transition:background-color 0.3s, opacity 0.3s; }
+.turn-display-combat { padding:6px 0; font-size:7px; border-radius:6px; background:rgba(15,23,42,0.85); border:2px solid var(--gba-border); color:var(--gba-gold); text-shadow:1px 1px 0 #000; text-align:center; width:100%; }
 
 #scene-description{position:absolute;left:5%;width:90%;font-size:8px;line-height:1.5;color:var(--gba-gold);text-align:center;margin:0;z-index:20;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);border-radius:6px;padding:6px;text-shadow:1px 1px 0 #000;transition:opacity 0.5s ease; top:48px; opacity: 0; pointer-events: none;}
 
@@ -125,7 +128,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         <div id="d20-result-text" style="display: none; font-size: 45px; text-shadow: 4px 4px 0 #000; font-weight: bold; text-align:center;"></div>
     </div>
 
-    <!-- TELA 1: SPLASH COM MÚSICA MELANCÓLICA E RESET -->
+    <!-- TELA 1: SPLASH COM MÚSICA MELANCÓLICA E RESET REPOSICIONADO -->
     <div id="screen-splash" class="screen active" onclick="handleSplashClick(event)">
         <div class="splash-logo-area">
             <h1>RPG BATTLES</h1>
@@ -133,9 +136,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         </div>
         <div class="splash-text-container">
             <div class="blink-text">TOQUE PARA INICIAR</div>
-            <button class="btn-stone" onclick="resetGameData(event)" style="margin-top: 25px; padding: 10px 15px; font-size: 8px; z-index: 10;"><i class="fa fa-trash"></i> RESETAR DADOS</button>
         </div>
-        <div class="credits-text">Desenvolvido por<br>wgrmoreira, Miguel e Maria</div>
+        <!-- Reset botão sutil abaixo -->
+        <button class="btn-stone" onclick="resetGameData(event)" style="position:absolute; bottom:15px; padding:6px 12px; font-size:6px; z-index:10; opacity:0.8; background:rgba(0,0,0,0.5)!important; border-color:#334155!important;"><i class="fa fa-trash"></i> RESETAR DADOS</button>
     </div>
 
     <!-- TELA 2: SELEÇÃO DE CLASSE -->
@@ -177,7 +180,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 <div style="font-size: 7px; color: var(--gba-gold); text-shadow:1px 1px 0 #000; text-align: right; margin-bottom: 6px; border-bottom: 1px dashed var(--gba-border); padding-bottom: 4px;">
                     <i class="ra ra-gold-bar"></i> <span id="ui-gold">40</span>G | H:<span id="ui-pot-hp">1</span> M:<span id="ui-pot-mp">1</span>
                 </div>
-                <!-- BARRAS INTERCALADAS -->
+                <!-- BARRAS INTERCALADAS (SEM PALAVRAS) -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                     <div>
                         <!-- HERÓI AZUL / MONSTRO VERMELHO -->
@@ -213,11 +216,13 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             <img id="viewport-hero" src="" onerror="this.style.display='none'">
             <img id="viewport-target" src="" style="display:none;" onerror="this.style.display='none'">
             
-            <!-- QUADRADINHOS DE JOGADAS RESTANTES -->
-            <div id="moves-indicator" style="position:absolute; left:5px; bottom:32px; display:flex; gap:4px; z-index:10;"></div>
+            <!-- QUADRADINHOS + TURNO NO CANTO ESQUERDO -->
+            <div class="turn-display-wrapper">
+                <div class="moves-indicator" id="moves-indicator"></div>
+                <div class="turn-display-combat">TURNO <span id="ui-turn">1</span> / 25</div>
+            </div>
             
-            <div class="turn-display-combat">TURNO <span id="ui-turn">1</span> / 25</div>
-            
+            <!-- BOTÕES NO CANTO DIREITO INFERIOR -->
             <div id="viewport-actions" style="display:none;">
                 <button class="btn-stone" onclick="usePotion('hp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-health" style="color:#22c55e"></i> CURA</button>
                 <button class="btn-stone" onclick="usePotion('mp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-potion" style="color:#3b82f6"></i> MANA</button>
@@ -233,7 +238,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
         <div id="panel-combat" style="display:none;">
             <div id="turn-banner"></div>
-            <!-- O ticker de informações "TURNO/MOVS" foi removido. O Tabuleiro sobe automaticamente -->
             <div class="puzzle-combat-panel" id="ui-puzzle-panel">
                 <div class="puzzle-grid-board" id="combat-puzzle-board"></div>
             </div>
@@ -319,6 +323,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         }
     }
 
+    // NOVOS CENÁRIOS ADICIONADOS
     const cenariosDb = {
         "cen_pantano1": { img: "assets/img/cen_pantano1.png" },
         "cen_pantano2": { img: "assets/img/cen_pantano2.png" },
@@ -328,7 +333,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         "cen_estrada1": { img: "assets/img/cen_estrada1.png" },
         "cen_floresta_sombria": { img: "assets/img/cen_floresta_sombria.png" },
         "cen_floresta1": { img: "assets/img/cen_floresta1.png" },
-        "cen_floresta2": { img: "assets/img/cen_floresta2.png" }
+        "cen_floresta2": { img: "assets/img/cen_floresta2.png" },
+        "cen_plan1": { img: "assets/img/cen_plan1.png" },
+        "cen_plan2": { img: "assets/img/cen_plan2.png" }
     };
 
     // A Pedra "🪨" mantida na metade da proporção média
@@ -344,7 +351,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     let fallingIndices = new Set(); let isMonsterTurn = false; let isProcessingAnimations = false; let gridLocked = false;
     let touchStartX = null; let touchStartY = null; let touchStartIdx = null; let isMouseDown = false;
     let d20AnimInterval = null; let enemySwordsCount = 0; let isRollingD20 = false;
-    let msgTimeout = null;
+    let msgTimeout = null; let animTimeout = null;
 
     let audioCtx = null;
     let bgmOsc = null;
@@ -369,16 +376,21 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         }, 3000);
     }
 
-    // Gerencia as "caixinhas" que representam a quantidade de movimentos
     function updateMovesIndicator() {
         const container = document.getElementById("moves-indicator");
         if (!container) return;
         container.innerHTML = "";
         let color = isMonsterTurn ? "#ef4444" : "#3b82f6";
-        for (let i = 0; i < puzzleMoves; i++) {
+        for (let i = 0; i < 5; i++) {
             let sq = document.createElement("div");
             sq.className = "move-square";
-            sq.style.backgroundColor = color;
+            if (i < puzzleMoves) {
+                sq.style.backgroundColor = color;
+                sq.style.opacity = "1";
+            } else {
+                sq.style.backgroundColor = "transparent";
+                sq.style.opacity = "0.4";
+            }
             container.appendChild(sq);
         }
     }
@@ -568,7 +580,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             hp = [70, 75, 80][Math.floor(Math.random()*3)]; img = "balrog.png"; name = "Gorthaur, o Balrog"; 
         } else if (cat === "Forte") { 
             hp = Math.floor(Math.random() * 16) + 50; 
-            let opts = [{i:"lob1.png", n:"Fenrir, Lobo Sanguinário"}, {i:"ara1.png", n:"Arachne, a Viúva Negra"}, {i:"troll1.png", n:"Trundle, Troll da Montanha"}];
+            // Novo Inimigo Forte Adicionado aqui
+            let opts = [{i:"lob1.png", n:"Fenrir, Lobo Sanguinário"}, {i:"ara1.png", n:"Arachne, a Viúva Negra"}, {i:"troll1.png", n:"Trundle, Troll da Montanha"}, {i:"ogro1.png", n:"Grommash, o Ogro Esmagador"}];
             let p = opts[Math.floor(Math.random()*opts.length)]; img = p.i; name = p.n;
         } else { 
             hp = Math.floor(Math.random() * 26) + 35; 
@@ -628,7 +641,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
     function startTurnFlow(isMonster) {
         isMonsterTurn = isMonster; gridLocked = true; puzzleMoves = 5; enemySwordsCount = 0; 
-        updateMovesIndicator(); // Atualiza os quadradinhos de movimento
+        updateMovesIndicator(); 
         let banner = document.getElementById("turn-banner"); banner.innerText = isMonster ? "TURNO DO INIMIGO" : "SEU TURNO"; banner.style.backgroundColor = isMonster ? "rgba(220, 38, 38, 0.95)" : "rgba(37, 99, 235, 0.95)"; banner.style.display = "block";
         generateRandomBoard(); renderPuzzleUI();
         let combosFinished = false; let timeUp = false; isProcessingAnimations = true;
@@ -652,7 +665,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         do { 
             let newBoard = [];
             for (let i = 0; i < 30; i++) {
-                // Preserva o raio de magias ao embaralhar
                 if (puzzleBoardData && puzzleBoardData[i] === "⚡") newBoard.push("⚡");
                 else newBoard.push(tilePool[Math.floor(Math.random() * tilePool.length)]);
             }
@@ -679,6 +691,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         boardElement.innerHTML = newHTML;
     }
 
+    // Suporte Total Drag-n-Drop e Touch para Computador e Mobile
     document.addEventListener("DOMContentLoaded", () => {
         const boardElement = document.getElementById("combat-puzzle-board");
         
@@ -784,7 +797,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
         setTimeout(() => {
             if (stoneMatched) {
-                showMessage("O Tabuleiro foi embaralhado!");
+                showMessage("O Tabuleiro foi reembaralhado!");
                 generateRandomBoard();
             } else {
                 applyGravity();
@@ -835,7 +848,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
     function processBoardCombos(onComplete) {
         let matched = new Set(); let audioTriggeredSize = 3; let coinMatchedCount = 0; let potionCount = 0; let squareAnchors = new Set();
-        let stoneMatched = false;
+        let stoneMatched = false; let enemyAttackTiles = 0;
 
         for (let r = 0; r < 5; r++) { for (let c = 0; c < 4; c++) { let i = r * 6 + c; let t = puzzleBoardData[i]; if (t!=="⚡" && t!=null && t === puzzleBoardData[i+1] && t === puzzleBoardData[i+2]) { matched.add(i); matched.add(i+1); matched.add(i+2); } } }
         for (let r = 0; r < 3; r++) { for (let c = 0; c < 6; c++) { let i = r * 6 + c; let t = puzzleBoardData[i]; if (t!=="⚡" && t!=null && t === puzzleBoardData[i+6] && t === puzzleBoardData[i+12]) { matched.add(i); matched.add(i+6); matched.add(i+12); } } }
@@ -848,11 +861,21 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             matched.forEach(idx => {
                 let element = document.getElementById(`tile-${idx}`); if (element) element.classList.add("tile-matched"); 
                 let type = puzzleBoardData[idx]; if (type === "🪙") coinMatchedCount++; if (type === "💧") potionCount++;
-                if (type === "⚔️") { spawnFloatingText(idx, "ATK", "#ef4444"); if (isMonsterTurn) enemySwordsCount++; }
-                if (type === "🔥") { spawnFloatingText(idx, "FOGO", "#ea580c"); if (isMonsterTurn) enemySwordsCount++; }
+                if (type === "⚔️") { spawnFloatingText(idx, "ATK", "#ef4444"); if (isMonsterTurn) { enemySwordsCount++; enemyAttackTiles++; } }
+                if (type === "🔥") { spawnFloatingText(idx, "FOGO", "#ea580c"); if (isMonsterTurn) { enemySwordsCount++; enemyAttackTiles++; } }
                 if (type === "🛡️") spawnFloatingText(idx, "DEF", "#3b82f6"); if (type === "🪙") spawnFloatingText(idx, "OURO", "#fbbf24"); if (type === "❤️") spawnFloatingText(idx, "VIDA", "#22c55e"); if (type === "💧") spawnFloatingText(idx, !isMonsterTurn ? "+MP" : "FALHOU", !isMonsterTurn ? "#3b82f6" : "#94a3b8");
                 if (type === "🪨") { spawnFloatingText(idx, "EMBARALHOU!", "#94a3b8"); stoneMatched = true; }
             });
+
+            // Efeito visual do Monstro (Ataque Crítico com combo de 4 ou mais lâminas/fogo)
+            if (isMonsterTurn && enemyAttackTiles >= 4) {
+                let tgt = document.getElementById("viewport-target");
+                if (tgt) {
+                    tgt.classList.add("monster-crit-anim");
+                    clearTimeout(animTimeout);
+                    animTimeout = setTimeout(() => tgt.classList.remove("monster-crit-anim"), 500);
+                }
+            }
 
             if (coinMatchedCount >= 3) playMatchAudio(3, true); else playMatchAudio(audioTriggeredSize, false);
 
@@ -871,7 +894,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 
                 if (stoneMatched) {
                     showMessage("O Tabuleiro foi reembaralhado!");
-                    generateRandomBoard(); // Substitui tudo de forma instantânea
+                    generateRandomBoard(); 
                 } else {
                     applyGravity();
                 }
@@ -917,13 +940,13 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     function getMonsterBaseAtk() { 
         if (!enemy) return 0; 
         let b = 2; if (enemy.type === "Forte") b = 4; if (enemy.type === "Raro") b = 5; if (enemy.type === "Lendário") b = 8; 
-        return b; 
+        return b + Math.floor(turn * 0.8); 
     }
     
     function getMonsterBaseDef() { 
         if (!enemy) return 0; 
         let b = 2; if (enemy.type === "Forte") b = 4; if (enemy.type === "Raro") b = 5; if (enemy.type === "Lendário") b = 8; 
-        return b; 
+        return b + Math.floor(turn * 0.5); 
     }
 
     function updateAccumulatorsUI() {
@@ -981,7 +1004,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("viewport-container").style.backgroundImage = "url('assets/img/win.png')"; 
         document.getElementById("viewport-actions").style.display = "none";
         
-        // Exibição do herói centralizado em cima de win.png com prioridade máxima
         const heroImg = document.getElementById("viewport-hero");
         heroImg.src = player.avatarPath;
         heroImg.style.display = "block";
@@ -1018,6 +1040,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("shop-ui-avatar").src = player.avatarPath;
         document.getElementById("shop-ui-name").innerText = player.name;
         document.getElementById("shop-ui-class").innerText = classNamesMap[player.class];
+        document.getElementById("shop-ui-atk").innerText = player.baseAtk - 8;
+        document.getElementById("shop-ui-def").innerText = player.baseDef;
         
         changeScreen("screen-shop"); 
         updateUI();
@@ -1032,7 +1056,11 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         else if (itemType === 'weapon' && player.gold >= shopPrices.weapon) { player.gold -= shopPrices.weapon; player.baseAtk += 3; shopPrices.weapon += 58; bought = true; }
         else if (itemType === 'armor' && player.gold >= shopPrices.armor) { player.gold -= shopPrices.armor; player.baseDef += 3; shopPrices.armor += 58; bought = true; }
         
-        if (bought) { playBuySound(); } else try{playSelectionSound();}catch(e){} 
+        if (bought) {
+            playBuySound();
+            document.getElementById("shop-ui-atk").innerText = player.baseAtk - 8;
+            document.getElementById("shop-ui-def").innerText = player.baseDef;
+        } else try{playSelectionSound();}catch(e){} 
         updateUI(); updateAccumulatorsUI();
     }
 
