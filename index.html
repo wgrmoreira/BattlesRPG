@@ -32,8 +32,8 @@ body{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/img
 h2,h3{text-align:center;color:var(--gba-text-light);margin-top:0;font-size:10px;line-height:1.5;}
 hr{border:0;height:4px;background:var(--gba-border);margin:8px 0;box-shadow:0 2px 0 #000;}
 
-/* GRID INTERCALADO E REPOSICIONADO */
-.stats-grid{display:grid;grid-template-columns:1.2fr 1.8fr;background:#1e293b;padding:10px;border:3px solid var(--gba-border);border-radius:8px;gap:6px;align-items:center;}
+/* GRID INTERCALADO COM AS COLUNAS IGUAIS (1fr para esquerda e 2fr para direita que divide em 2) */
+.stats-grid{display:grid;grid-template-columns:1fr 2fr;background:#1e293b;padding:10px;border:3px solid var(--gba-border);border-radius:8px;gap:6px;align-items:center;}
 .stat-box{font-size:8px;line-height:1.6;}
 .hero-header-line{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
 .hero-title-area{font-size:10px;color:var(--gba-gold);text-shadow:1px 1px 0 #000;display:inline-block;}
@@ -52,7 +52,6 @@ hr{border:0;height:4px;background:var(--gba-border);margin:8px 0;box-shadow:0 2p
 input[type="text"]{background:#0f172a;color:var(--gba-gold);border:3px solid var(--gba-border);border-radius:8px;padding:16px;font-size:10px;text-align:center;width:100%;text-transform:uppercase;outline:none;margin:10px 0 15px 0;transition:border-color 0.3s;}
 input::placeholder{color:#475569;}
 
-/* BARRAS MAIS GROSSAS (height 8px) */
 .bar-container{background:#0f172a;border:2px solid var(--gba-border);border-radius:10px;height:8px;width:100%;margin:4px 0 8px 0;overflow:hidden;}
 .bar-fill{height:100%;width:100%;border-radius:10px;transition:width 0.3s cubic-bezier(0.4,0,0.2,1);}
 .bar-hp{background:var(--bg-hp-grad);} .bar-mp{background:var(--bg-mp-grad);} .bar-enemy{background:var(--bg-enemy-grad);}
@@ -71,6 +70,9 @@ input::placeholder{color:#475569;}
 
 .turn-display-combat{position:absolute;left:5px;bottom:5px;padding:6px 8px;font-size:7px;border-radius:6px;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);color:var(--gba-gold);text-shadow:1px 1px 0 #000;z-index:10;}
 
+/* INDICADOR DE JOGADAS EM QUADRADINHOS */
+.move-square { width: 8px; height: 8px; border: 1px solid #fff; border-radius: 2px; box-shadow: 1px 1px 0 #000; transition: background-color 0.3s; }
+
 #scene-description{position:absolute;left:5%;width:90%;font-size:8px;line-height:1.5;color:var(--gba-gold);text-align:center;margin:0;z-index:20;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);border-radius:6px;padding:6px;text-shadow:1px 1px 0 #000;transition:opacity 0.5s ease; top:48px; opacity: 0; pointer-events: none;}
 
 @keyframes tauntPulse{0%{transform:scale(1);filter:drop-shadow(0 0 5px #ef4444);}100%{transform:scale(1.1);filter:drop-shadow(0 0 25px #ef4444);}}
@@ -87,8 +89,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 .puzzle-combat-panel.turn-hero{border-color:var(--color-turn-hero)!important;box-shadow:0 0 12px var(--color-turn-hero);}
 .puzzle-combat-panel.turn-monster{border-color:#ef4444!important;}
 .puzzle-combat-panel.turn-monster .puzzle-grid-board { border-color: #ef4444 !important; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
-
-.puzzle-stats-ticker{width:100%;background:#1f2937;border-radius:6px;padding:6px 8px;font-size:7px;display:flex;justify-content:space-between;align-items:center;color:#fff;border:2px solid #374151;gap:4px;}
 
 .puzzle-grid-board{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(5,1fr);gap:5px;width:100%;height:265px;background:#030712;padding:6px;border-radius:8px;border:3px solid #1f2937;touch-action:none;position:relative;overflow:hidden;transition: border-color 0.3s, box-shadow 0.3s;}
 
@@ -177,7 +177,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 <div style="font-size: 7px; color: var(--gba-gold); text-shadow:1px 1px 0 #000; text-align: right; margin-bottom: 6px; border-bottom: 1px dashed var(--gba-border); padding-bottom: 4px;">
                     <i class="ra ra-gold-bar"></i> <span id="ui-gold">40</span>G | H:<span id="ui-pot-hp">1</span> M:<span id="ui-pot-mp">1</span>
                 </div>
-                <!-- BARRAS INTERCALADAS (SEM PALAVRAS, SÓ AS CORES E ATK/DEF) -->
+                <!-- BARRAS INTERCALADAS -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                     <div>
                         <!-- HERÓI AZUL / MONSTRO VERMELHO -->
@@ -213,6 +213,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             <img id="viewport-hero" src="" onerror="this.style.display='none'">
             <img id="viewport-target" src="" style="display:none;" onerror="this.style.display='none'">
             
+            <!-- QUADRADINHOS DE JOGADAS RESTANTES -->
+            <div id="moves-indicator" style="position:absolute; left:5px; bottom:32px; display:flex; gap:4px; z-index:10;"></div>
+            
             <div class="turn-display-combat">TURNO <span id="ui-turn">1</span> / 25</div>
             
             <div id="viewport-actions" style="display:none;">
@@ -230,11 +233,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
         <div id="panel-combat" style="display:none;">
             <div id="turn-banner"></div>
+            <!-- O ticker de informações "TURNO/MOVS" foi removido. O Tabuleiro sobe automaticamente -->
             <div class="puzzle-combat-panel" id="ui-puzzle-panel">
-                <div class="puzzle-stats-ticker">
-                    <span id="puzzle-turn-owner" style="color:var(--gba-gold)">TURNO: SEU</span>
-                    <span id="puzzle-moves-left">MOVS: 5</span>
-                </div>
                 <div class="puzzle-grid-board" id="combat-puzzle-board"></div>
             </div>
         </div>
@@ -331,7 +331,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         "cen_floresta2": { img: "assets/img/cen_floresta2.png" }
     };
 
-    // A Pedra "🪨" foi mantida na metade da proporção média
+    // A Pedra "🪨" mantida na metade da proporção média
     const tilePool = ["⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️", "🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️", "❤️","❤️","❤️","❤️","❤️","❤️","❤️","❤️","❤️","❤️", "🪙","🪙","🪙","🪙","🪙","🪙","🪙","🪙", "💧","💧","💧","💧","💧","💧", "🔥","🔥","🔥","🔥","🔥","🔥", "🪨","🪨","🪨","🪨"]; 
 
     let player = { name: "", class: "knight", hp: 100, maxHp: 100, mp: 60, maxMp: 60, gold: 40, baseAtk: 10, baseDef: 2, potHp: 1, potMp: 1, avatarPath: "" };
@@ -367,6 +367,20 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         msgTimeout = setTimeout(() => {
             el.style.opacity = 0;
         }, 3000);
+    }
+
+    // Gerencia as "caixinhas" que representam a quantidade de movimentos
+    function updateMovesIndicator() {
+        const container = document.getElementById("moves-indicator");
+        if (!container) return;
+        container.innerHTML = "";
+        let color = isMonsterTurn ? "#ef4444" : "#3b82f6";
+        for (let i = 0; i < puzzleMoves; i++) {
+            let sq = document.createElement("div");
+            sq.className = "move-square";
+            sq.style.backgroundColor = color;
+            container.appendChild(sq);
+        }
     }
 
     function initAudioContext() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if(audioCtx.state === 'suspended') audioCtx.resume(); }
@@ -478,7 +492,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     function startNextStage() {
         document.getElementById("panel-combat").style.display = "none";
         
-        // Garante invisibilidade do herói durante o duelo para não vazar a imagem
+        // Esconde o herói para não vazar a imagem no meio da transição
         const heroImg = document.getElementById("viewport-hero");
         heroImg.src = player.avatarPath; 
         heroImg.style.display = "none"; 
@@ -614,6 +628,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
     function startTurnFlow(isMonster) {
         isMonsterTurn = isMonster; gridLocked = true; puzzleMoves = 5; enemySwordsCount = 0; 
+        updateMovesIndicator(); // Atualiza os quadradinhos de movimento
         let banner = document.getElementById("turn-banner"); banner.innerText = isMonster ? "TURNO DO INIMIGO" : "SEU TURNO"; banner.style.backgroundColor = isMonster ? "rgba(220, 38, 38, 0.95)" : "rgba(37, 99, 235, 0.95)"; banner.style.display = "block";
         generateRandomBoard(); renderPuzzleUI();
         let combosFinished = false; let timeUp = false; isProcessingAnimations = true;
@@ -635,8 +650,13 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     function generateRandomBoard() {
         let attempts = 100; 
         do { 
-            puzzleBoardData = []; 
-            for (let i = 0; i < 30; i++) puzzleBoardData.push(tilePool[Math.floor(Math.random() * tilePool.length)]); 
+            let newBoard = [];
+            for (let i = 0; i < 30; i++) {
+                // Preserva o raio de magias ao embaralhar
+                if (puzzleBoardData && puzzleBoardData[i] === "⚡") newBoard.push("⚡");
+                else newBoard.push(tilePool[Math.floor(Math.random() * tilePool.length)]);
+            }
+            puzzleBoardData = newBoard;
             attempts--;
         } while(getValidMoves().length === 0 && attempts > 0); 
     }
@@ -648,9 +668,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
     function renderPuzzleUI() {
         const boardElement = document.getElementById("combat-puzzle-board"); 
-        document.getElementById("puzzle-turn-owner").innerText = isMonsterTurn ? "TURNO: MONSTRO" : "TURNO: SEU"; 
-        document.getElementById("puzzle-moves-left").innerText = `MOVS: ${puzzleMoves}`; 
-
         let newHTML = "";
         for (let i = 0; i < 30; i++) {
             let tile = puzzleBoardData[i] || "";
@@ -662,11 +679,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         boardElement.innerHTML = newHTML;
     }
 
-    // SUPORTE TOTAL PARA MOUSE (PC) E TOUCH (MOBILE) PARA EVITAR "TRAVAMENTO"
     document.addEventListener("DOMContentLoaded", () => {
         const boardElement = document.getElementById("combat-puzzle-board");
         
-        // EVENTOS DE TOUCH MOBILE
         boardElement.addEventListener('touchstart', (e) => {
             if (gridLocked || isMonsterTurn || !inCombat || isProcessingAnimations) return;
             let tileNode = e.target.closest('.puzzle-tile-block'); if (!tileNode) return;
@@ -692,7 +707,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
         boardElement.addEventListener('touchend', () => { touchStartIdx = null; });
         
-        // EVENTOS DE MOUSE PARA PC
         boardElement.addEventListener('mousedown', (e) => {
             if (gridLocked || isMonsterTurn || !inCombat || isProcessingAnimations) return;
             let tileNode = e.target.closest('.puzzle-tile-block'); if (!tileNode) return;
@@ -718,7 +732,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
         window.addEventListener('mouseup', () => { isMouseDown = false; touchStartIdx = null; });
 
-        // EVENTO DE CLIQUE (Alternativo/Secundário)
         boardElement.addEventListener('click', (e) => {
             if (gridLocked || isMonsterTurn || !inCombat || isProcessingAnimations) return;
             let tileNode = e.target.closest('.puzzle-tile-block'); if (!tileNode) return;
@@ -732,7 +745,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         let magicCost = player.class === 'mage' ? 10 : 15;
         if (!isMonsterTurn && player.mp < magicCost) { spawnFloatingText(idx, "SEM MP", "#94a3b8"); return; }
         if (!isMonsterTurn) player.mp -= magicCost;
-        gridLocked = true; puzzleMoves--; spawnFloatingText(idx, "MAGIA!", "#a855f7"); playMagicSound(); 
+        gridLocked = true; puzzleMoves--; updateMovesIndicator(); spawnFloatingText(idx, "MAGIA!", "#a855f7"); playMagicSound(); 
         
         let magicDmg = Math.ceil((isMonsterTurn ? (2 + Math.floor(turn * 0.3)) : (player.baseAtk / 2)) * 1.5); 
         if (!isMonsterTurn) { enemy.hp -= magicDmg; spawnFloatingText(idx, `-${magicDmg} HP`, "#a855f7"); } 
@@ -741,6 +754,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         let toExplode = [idx]; let r = Math.floor(idx / 6); let c = idx % 6;
         if (r > 0) toExplode.push(idx - 6); if (r < 4) toExplode.push(idx + 6); if (c > 0) toExplode.push(idx - 1); if (c < 5) toExplode.push(idx + 1); 
         let expPotionCount = 0;
+        let stoneMatched = false;
         
         let regenPerc = 1 - (0.25 - ((turn - 1) * 0.01));
 
@@ -757,7 +771,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 }
                 if (t === "🪙" && !isMonsterTurn) { player.gold += 1; spawnFloatingText(i, "OURO", "#fbbf24"); }
                 if (t === "💧" && !isMonsterTurn) { expPotionCount++; spawnFloatingText(i, "+MP", "#3b82f6"); }
-                if (t === "🪨") { spawnFloatingText(i, "PEDRA", "#94a3b8"); }
+                if (t === "🪨") { spawnFloatingText(i, "EMBARALHOU!", "#94a3b8"); stoneMatched = true; }
             }
             let el = document.getElementById(`tile-${i}`); if (el) el.classList.add("tile-matched"); puzzleBoardData[i] = null;
         });
@@ -769,7 +783,14 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         if (isMonsterTurn && player.hp <= 0) { player.hp = 0; endGame(false); return; }
 
         setTimeout(() => {
-            applyGravity(); renderPuzzleUI();
+            if (stoneMatched) {
+                showMessage("O Tabuleiro foi embaralhado!");
+                generateRandomBoard();
+            } else {
+                applyGravity();
+            }
+            renderPuzzleUI();
+            
             setTimeout(() => {
                 fallingIndices.clear();
                 processBoardCombos(() => {
@@ -800,11 +821,11 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         swapData(idx1, idx2); isProcessingAnimations = true; renderPuzzleUI(); 
         setTimeout(() => {
             if (!checkMoveValidity()) {
-                gridLocked = true; swapData(idx1, idx2); renderPuzzleUI(); isProcessingAnimations = false; showMessage("Movimento inválido! Turno passado."); puzzleMoves = 0;
+                gridLocked = true; swapData(idx1, idx2); renderPuzzleUI(); isProcessingAnimations = false; showMessage("Movimento inválido! Turno passado."); puzzleMoves = 0; updateMovesIndicator();
                 if (!isMonsterTurn) { setTimeout(() => { startTurnFlow(true); }, 1200); } else { setTimeout(() => { executeMonsterTurnAI_Step(); }, 400); }
                 return;
             }
-            puzzleMoves--;
+            puzzleMoves--; updateMovesIndicator();
             processBoardCombos(() => {
                 if (puzzleMoves <= 0) { isProcessingAnimations = false; gridLocked = true; if (!isMonsterTurn) { showMessage("Fim do seu turno. Acúmulos realizados!"); setTimeout(() => { startTurnFlow(true); }, 1500); } else { executeMonsterResolutionPhase(); } } 
                 else { isProcessingAnimations = false; gridLocked = false; renderPuzzleUI(); if (isMonsterTurn) setTimeout(executeMonsterTurnAI_Step, 600); }
@@ -814,6 +835,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
     function processBoardCombos(onComplete) {
         let matched = new Set(); let audioTriggeredSize = 3; let coinMatchedCount = 0; let potionCount = 0; let squareAnchors = new Set();
+        let stoneMatched = false;
+
         for (let r = 0; r < 5; r++) { for (let c = 0; c < 4; c++) { let i = r * 6 + c; let t = puzzleBoardData[i]; if (t!=="⚡" && t!=null && t === puzzleBoardData[i+1] && t === puzzleBoardData[i+2]) { matched.add(i); matched.add(i+1); matched.add(i+2); } } }
         for (let r = 0; r < 3; r++) { for (let c = 0; c < 6; c++) { let i = r * 6 + c; let t = puzzleBoardData[i]; if (t!=="⚡" && t!=null && t === puzzleBoardData[i+6] && t === puzzleBoardData[i+12]) { matched.add(i); matched.add(i+6); matched.add(i+12); } } }
         for (let r = 0; r < 4; r++) { for (let c = 0; c < 5; c++) { let i = r * 6 + c; let t = puzzleBoardData[i]; if (t!=="⚡" && t!=null && t === puzzleBoardData[i+1] && t === puzzleBoardData[i+6] && t === puzzleBoardData[i+7]) { matched.add(i); matched.add(i+1); matched.add(i+6); matched.add(i+7); audioTriggeredSize = 4; if (["⚔️", "❤️", "🛡️", "💧", "🔥", "🪨"].includes(t)) squareAnchors.add(i); } } }
@@ -828,7 +851,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 if (type === "⚔️") { spawnFloatingText(idx, "ATK", "#ef4444"); if (isMonsterTurn) enemySwordsCount++; }
                 if (type === "🔥") { spawnFloatingText(idx, "FOGO", "#ea580c"); if (isMonsterTurn) enemySwordsCount++; }
                 if (type === "🛡️") spawnFloatingText(idx, "DEF", "#3b82f6"); if (type === "🪙") spawnFloatingText(idx, "OURO", "#fbbf24"); if (type === "❤️") spawnFloatingText(idx, "VIDA", "#22c55e"); if (type === "💧") spawnFloatingText(idx, !isMonsterTurn ? "+MP" : "FALHOU", !isMonsterTurn ? "#3b82f6" : "#94a3b8");
-                if (type === "🪨") { spawnFloatingText(idx, "PEDRA", "#94a3b8"); }
+                if (type === "🪨") { spawnFloatingText(idx, "EMBARALHOU!", "#94a3b8"); stoneMatched = true; }
             });
 
             if (coinMatchedCount >= 3) playMatchAudio(3, true); else playMatchAudio(audioTriggeredSize, false);
@@ -844,7 +867,15 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                     puzzleBoardData[idx] = null; 
                 });
                 if (!isMonsterTurn && potionCount > 0) { let mpGain = potionCount >= 4 ? 4 : 3; player.mp = Math.min(player.maxMp, player.mp + mpGain); }
-                squareAnchors.forEach(idx => { puzzleBoardData[idx] = "⚡"; }); applyGravity();
+                squareAnchors.forEach(idx => { puzzleBoardData[idx] = "⚡"; }); 
+                
+                if (stoneMatched) {
+                    showMessage("O Tabuleiro foi reembaralhado!");
+                    generateRandomBoard(); // Substitui tudo de forma instantânea
+                } else {
+                    applyGravity();
+                }
+
                 updateAccumulatorsUI(); renderPuzzleUI(); updateUI();
                 setTimeout(() => { fallingIndices.clear(); processBoardCombos(onComplete); }, 300);
             }, 450);
@@ -870,7 +901,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             if(t1) t1.classList.add("selected-tile"); if(t2) t2.classList.add("selected-tile");
             setTimeout(() => { executeTileSwap(rIdx, nextIdx); }, 400); 
         } else {
-            puzzleMoves = 0; showMessage("O Monstro não encontrou jogadas e passou a vez!"); executeMonsterResolutionPhase();
+            puzzleMoves = 0; updateMovesIndicator(); showMessage("O Monstro não encontrou jogadas e passou a vez!"); executeMonsterResolutionPhase();
         }
     }
 
@@ -883,7 +914,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         } else { applyRoundDamage(); }
     }
 
-    // Bônus fixos do monstro
     function getMonsterBaseAtk() { 
         if (!enemy) return 0; 
         let b = 2; if (enemy.type === "Forte") b = 4; if (enemy.type === "Raro") b = 5; if (enemy.type === "Lendário") b = 8; 
@@ -907,7 +937,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("ui-round-atk-monster").innerText = totalMonsterAtk;
         document.getElementById("ui-round-def-monster").innerText = totalMonsterDef;
         
-        const maxVal = 100; // Ajustado para 100 de acordo com o pedido
+        const maxVal = 100; 
         document.getElementById("bar-round-atk-hero").style.width = `${Math.min(100, (totalHeroAtk / maxVal) * 100)}%`;
         document.getElementById("bar-round-def-hero").style.width = `${Math.min(100, (totalHeroDef / maxVal) * 100)}%`;
         document.getElementById("bar-round-atk-monster").style.width = `${Math.min(100, (totalMonsterAtk / maxVal) * 100)}%`;
@@ -951,7 +981,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("viewport-container").style.backgroundImage = "url('assets/img/win.png')"; 
         document.getElementById("viewport-actions").style.display = "none";
         
-        // Força exibição do herói centralizado em cima de win.png com prioridade máxima
+        // Exibição do herói centralizado em cima de win.png com prioridade máxima
         const heroImg = document.getElementById("viewport-hero");
         heroImg.src = player.avatarPath;
         heroImg.style.display = "block";
@@ -988,8 +1018,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("shop-ui-avatar").src = player.avatarPath;
         document.getElementById("shop-ui-name").innerText = player.name;
         document.getElementById("shop-ui-class").innerText = classNamesMap[player.class];
-        document.getElementById("shop-ui-atk").innerText = player.baseAtk - 8;
-        document.getElementById("shop-ui-def").innerText = player.baseDef;
         
         changeScreen("screen-shop"); 
         updateUI();
@@ -1004,11 +1032,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         else if (itemType === 'weapon' && player.gold >= shopPrices.weapon) { player.gold -= shopPrices.weapon; player.baseAtk += 3; shopPrices.weapon += 58; bought = true; }
         else if (itemType === 'armor' && player.gold >= shopPrices.armor) { player.gold -= shopPrices.armor; player.baseDef += 3; shopPrices.armor += 58; bought = true; }
         
-        if (bought) {
-            playBuySound();
-            document.getElementById("shop-ui-atk").innerText = player.baseAtk - 8;
-            document.getElementById("shop-ui-def").innerText = player.baseDef;
-        } else try{playSelectionSound();}catch(e){} 
+        if (bought) { playBuySound(); } else try{playSelectionSound();}catch(e){} 
         updateUI(); updateAccumulatorsUI();
     }
 
