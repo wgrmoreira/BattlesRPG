@@ -52,7 +52,8 @@ hr{border:0;height:4px;background:var(--gba-border);margin:8px 0;box-shadow:0 2p
 input[type="text"]{background:#0f172a;color:var(--gba-gold);border:3px solid var(--gba-border);border-radius:8px;padding:16px;font-size:10px;text-align:center;width:100%;text-transform:uppercase;outline:none;margin:10px 0 15px 0;transition:border-color 0.3s;}
 input::placeholder{color:#475569;}
 
-.bar-container{background:#0f172a;border:2px solid var(--gba-border);border-radius:10px;height:12px;width:100%;margin:4px 0 8px 0;overflow:hidden;}
+/* BARRAS MAIS GROSSAS (height 8px) */
+.bar-container{background:#0f172a;border:2px solid var(--gba-border);border-radius:10px;height:8px;width:100%;margin:4px 0 8px 0;overflow:hidden;}
 .bar-fill{height:100%;width:100%;border-radius:10px;transition:width 0.3s cubic-bezier(0.4,0,0.2,1);}
 .bar-hp{background:var(--bg-hp-grad);} .bar-mp{background:var(--bg-mp-grad);} .bar-enemy{background:var(--bg-enemy-grad);}
 
@@ -65,12 +66,12 @@ input::placeholder{color:#475569;}
 .combat-arena-hud{position:absolute;top:8px;left:5%;width:90%;background:rgba(15,23,42,0.85);border:2px solid var(--gba-gold);border-radius:6px;padding:6px 10px;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,0.5);}
 .combat-hud-row{display:flex;justify-content:space-between;align-items:center;font-size:8px;}
 
-/* BOTÕES DENTRO DO VIEWPORT */
+/* BOTÕES DENTRO DO VIEWPORT NO CANTO DIREITO INFERIOR */
 #viewport-actions { position:absolute; right:5px; bottom:5px; display:flex; flex-direction:column; gap:4px; z-index:10; width:65px; }
 
 .turn-display-combat{position:absolute;left:5px;bottom:5px;padding:6px 8px;font-size:7px;border-radius:6px;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);color:var(--gba-gold);text-shadow:1px 1px 0 #000;z-index:10;}
 
-#scene-description{position:absolute;left:5%;width:90%;font-size:8px;line-height:1.5;color:var(--gba-gold);text-align:center;margin:0;z-index:20;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);border-radius:6px;padding:6px;text-shadow:1px 1px 0 #000;transition:opacity 0.4s ease; top:48px; opacity: 1;}
+#scene-description{position:absolute;left:5%;width:90%;font-size:8px;line-height:1.5;color:var(--gba-gold);text-align:center;margin:0;z-index:20;background:rgba(15,23,42,0.85);border:2px solid var(--gba-border);border-radius:6px;padding:6px;text-shadow:1px 1px 0 #000;transition:opacity 0.5s ease; top:48px; opacity: 0; pointer-events: none;}
 
 @keyframes tauntPulse{0%{transform:scale(1);filter:drop-shadow(0 0 5px #ef4444);}100%{transform:scale(1.1);filter:drop-shadow(0 0 25px #ef4444);}}
 .taunt-anim{animation:tauntPulse 0.4s infinite alternate;}
@@ -176,20 +177,21 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 <div style="font-size: 7px; color: var(--gba-gold); text-shadow:1px 1px 0 #000; text-align: right; margin-bottom: 6px; border-bottom: 1px dashed var(--gba-border); padding-bottom: 4px;">
                     <i class="ra ra-gold-bar"></i> <span id="ui-gold">40</span>G | H:<span id="ui-pot-hp">1</span> M:<span id="ui-pot-mp">1</span>
                 </div>
+                <!-- BARRAS INTERCALADAS (AZUL=HERÓI, VERMELHO=MONSTRO) -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                     <div>
-                        <strong style="color: #60a5fa; font-size: 6.5px; text-shadow:1px 1px 0 #000;">ATK HERÓI: <span id="ui-round-atk-hero">0</span></strong>
-                        <div class="bar-container" style="height:6px; margin:2px 0;"><div id="bar-round-atk-hero" class="bar-fill" style="background: linear-gradient(90deg, #1d4ed8, #60a5fa); width:0%;"></div></div>
+                        <strong style="color: #60a5fa; font-size: 6.5px; text-shadow:1px 1px 0 #000;">ATK: <span id="ui-round-atk-hero">0</span></strong>
+                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-atk-hero" class="bar-fill" style="background: linear-gradient(90deg, #1d4ed8, #60a5fa); width:0%;"></div></div>
                         
-                        <strong style="color: #f87171; font-size: 6.5px; text-shadow:1px 1px 0 #000; display:block; margin-top:6px;">DEF MONSTRO: <span id="ui-round-def-monster">0</span></strong>
-                        <div class="bar-container" style="height:6px; margin:2px 0;"><div id="bar-round-def-monster" class="bar-fill" style="background: linear-gradient(90deg, #7f1d1d, #ef4444); width:0%;"></div></div>
+                        <strong style="color: #f87171; font-size: 6.5px; text-shadow:1px 1px 0 #000; display:block; margin-top:6px;">DEF: <span id="ui-round-def-monster">0</span></strong>
+                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-def-monster" class="bar-fill" style="background: linear-gradient(90deg, #7f1d1d, #ef4444); width:0%;"></div></div>
                     </div>
                     <div>
-                        <strong style="color: #f87171; font-size: 6.5px; text-shadow:1px 1px 0 #000;">ATK MONSTRO: <span id="ui-round-atk-monster">0</span></strong>
-                        <div class="bar-container" style="height:6px; margin:2px 0;"><div id="bar-round-atk-monster" class="bar-fill" style="background: linear-gradient(90deg, #b91c1c, #f87171); width:0%;"></div></div>
+                        <strong style="color: #f87171; font-size: 6.5px; text-shadow:1px 1px 0 #000;">ATK: <span id="ui-round-atk-monster">0</span></strong>
+                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-atk-monster" class="bar-fill" style="background: linear-gradient(90deg, #b91c1c, #f87171); width:0%;"></div></div>
                         
-                        <strong style="color: #60a5fa; font-size: 6.5px; text-shadow:1px 1px 0 #000; display:block; margin-top:6px;">DEF HERÓI: <span id="ui-round-def-hero">0</span></strong>
-                        <div class="bar-container" style="height:6px; margin:2px 0;"><div id="bar-round-def-hero" class="bar-fill" style="background: linear-gradient(90deg, #1e3a8a, #3b82f6); width:0%;"></div></div>
+                        <strong style="color: #60a5fa; font-size: 6.5px; text-shadow:1px 1px 0 #000; display:block; margin-top:6px;">DEF: <span id="ui-round-def-hero">0</span></strong>
+                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-def-hero" class="bar-fill" style="background: linear-gradient(90deg, #1e3a8a, #3b82f6); width:0%;"></div></div>
                     </div>
                 </div>
             </div>
@@ -204,21 +206,21 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 <div class="bar-container" style="margin: 4px 0 0 0; height: 8px;"><div id="bar-enemy" class="bar-fill bar-enemy"></div></div>
             </div>
 
-            <p id="scene-description" class="scene-combat" style="opacity: 0;">Iniciando duelo...</p>
+            <p id="scene-description" class="scene-combat">Iniciando duelo...</p>
 
             <img id="viewport-hero" src="" alt="Hero" onerror="this.style.display='none'">
             <img id="viewport-target" src="" alt="Target" style="display:none;" onerror="this.style.display='none'">
             
+            <!-- TURNO NO CANTO ESQUERDO -->
             <div class="turn-display-combat">TURNO <span id="ui-turn">1</span> / 25</div>
             
-            <!-- BOTÕES EMPILHADOS NO CANTO DO VIEWPORT -->
-            <div id="viewport-actions" style="display:none; position:absolute; right:5px; bottom:5px; flex-direction:column; gap:4px; z-index:10; width:65px;">
+            <!-- BOTÕES EMPILHADOS NO CANTO DIREITO (CURA, MANA, LOJA) -->
+            <div id="viewport-actions" style="display:none;">
                 <button class="btn-stone" onclick="usePotion('hp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-health" style="color:#22c55e"></i> CURA</button>
                 <button class="btn-stone" onclick="usePotion('mp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-potion" style="color:#3b82f6"></i> MANA</button>
                 <button class="btn-stone" onclick="openShopCombat()" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-pouch"></i> LOJA</button>
             </div>
 
-            <!-- TAUNT DO MONSTRO -->
             <div id="enemy-taunt-overlay" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('assets/img/duel.png') no-repeat center center; background-size: cover; z-index: 50; flex-direction: column; align-items: center; justify-content: center; padding: 10px;">
                 <div style="width:100%; height:100%; background:rgba(0,0,0,0.6); position:absolute; top:0; left:0; z-index:-1;"></div>
                 <img id="taunt-monster-img" src="" class="taunt-anim" style="width: 40%; image-rendering: pixelated; margin-bottom: 10px; z-index:2;" onerror="this.style.display='none'">
@@ -252,8 +254,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             </div>
             
             <div style="display:flex; gap: 8px; margin-top:8px;">
-                <div style="flex:1;"><div style="color:#22c55e; margin-bottom:2px; font-size:7px;">HP:<span id="shop-txt-hp">100/100</span></div><div class="bar-container" style="height:12px; margin:0;"><div id="shop-bar-hp" class="bar-fill bar-hp"></div></div></div>
-                <div style="flex:1;"><div style="color:#3b82f6; margin-bottom:2px; font-size:7px;">MP:<span id="shop-txt-mp">60/60</span></div><div class="bar-container" style="height:12px; margin:0;"><div id="shop-bar-mp" class="bar-fill bar-mp"></div></div></div>
+                <div style="flex:1;"><div style="color:#22c55e; margin-bottom:2px; font-size:7px;">HP:<span id="shop-txt-hp">100/100</span></div><div class="bar-container" style="height:8px; margin:0;"><div id="shop-bar-hp" class="bar-fill bar-hp"></div></div></div>
+                <div style="flex:1;"><div style="color:#3b82f6; margin-bottom:2px; font-size:7px;">MP:<span id="shop-txt-mp">60/60</span></div><div class="bar-container" style="height:8px; margin:0;"><div id="shop-bar-mp" class="bar-fill bar-mp"></div></div></div>
             </div>
 
             <!-- BOTÕES PARA USAR POÇÃO NA PRÓPRIA LOJA -->
@@ -268,10 +270,10 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         </div>
 
         <div id="shop-catalog">
-            <div class="shop-item-card"><div class="shop-item-info"><strong>P. DE CURA</strong><div>RESTAURA +40 HP</div></div><button class="btn-stone" onclick="buyItem('pot_hp')">30G</button></div>
-            <div class="shop-item-card"><div class="shop-item-info"><strong>P. DE MANA</strong><div>RESTAURA +20 MP</div></div><button class="btn-stone" id="btn-shop-potmp" onclick="buyItem('pot_mp')">25G</button></div>
-            <div class="shop-item-card"><div class="shop-item-info"><strong>ESPADA AÇO</strong><div>+3 ATK</div></div><button class="btn-stone" id="btn-shop-weapon" onclick="buyItem('weapon')"><span id="txt-price-weapon">100</span>G</button></div>
-            <div class="shop-item-card"><div class="shop-item-info"><strong>ARMADURA</strong><div>+3 DEF</div></div><button class="btn-stone" id="btn-shop-armor" onclick="buyItem('armor')"><span id="txt-price-armor">100</span>G</button></div>
+            <div class="shop-item-card"><div class="shop-item-info"><strong>P. DE CURA</strong><div>RESTAURA +28 HP</div></div><button class="btn-stone" onclick="buyItem('pot_hp')">35G</button></div>
+            <div class="shop-item-card"><div class="shop-item-info"><strong>P. DE MANA</strong><div>RESTAURA +14 MP</div></div><button class="btn-stone" id="btn-shop-potmp" onclick="buyItem('pot_mp')">29G</button></div>
+            <div class="shop-item-card"><div class="shop-item-info"><strong>ESPADA AÇO</strong><div>+3 ATK</div></div><button class="btn-stone" id="btn-shop-weapon" onclick="buyItem('weapon')"><span id="txt-price-weapon">115</span>G</button></div>
+            <div class="shop-item-card"><div class="shop-item-info"><strong>ARMADURA</strong><div>+3 DEF</div></div><button class="btn-stone" id="btn-shop-armor" onclick="buyItem('armor')"><span id="txt-price-armor">115</span>G</button></div>
         </div>
         <hr><button class="btn-stone" onclick="closeShop()" style="width:100%; padding: 15px 0; margin-top:5px;">VOLTAR A BATALHA</button>
     </div>
@@ -333,7 +335,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     const tilePool = ["⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️", "🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️", "❤️","❤️","❤️","❤️","❤️", "🪙","🪙","🪙","🪙","🪙", "💧","💧", "🔥","🔥"]; 
 
     let player = { name: "", class: "knight", hp: 100, maxHp: 100, mp: 60, maxMp: 60, gold: 40, baseAtk: 10, baseDef: 2, potHp: 1, potMp: 1, avatarPath: "" };
-    let shopPrices = { weapon: 100, armor: 100 }; let stats = { normalKills: 0, bossKills: 0 };
+    // Preços com aumento de 15% (Arredondados)
+    let shopPrices = { weapon: 115, armor: 115 }; let stats = { normalKills: 0, bossKills: 0 };
     let enemy = null; let turn = 1; let inCombat = false; let selectedClassSetup = "knight";
 
     let puzzleMoves = 5; let puzzleBoardData = []; let selectedTileIndex = null;
@@ -475,6 +478,15 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
     function startNextStage() {
         document.getElementById("panel-combat").style.display = "none";
+        
+        // Garante o posicionamento normal do herói para combate
+        const heroImg = document.getElementById("viewport-hero");
+        heroImg.style.zIndex = "5";
+        heroImg.style.left = "45px";
+        heroImg.style.transform = "none";
+        heroImg.style.bottom = "10px";
+        heroImg.style.width = "32.5%";
+
         changeScreen('screen-main'); 
         updateUI(); 
         
@@ -491,7 +503,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("viewport-container").style.backgroundImage = "url('assets/img/duel.png')";
         
         inCombat = true; 
-        document.getElementById("viewport-hero").style.display = "none"; 
+        document.getElementById("viewport-hero").style.display = "block"; 
         document.getElementById("hud-enemy").style.display = "block"; 
         document.getElementById("viewport-actions").style.display = "flex";
         document.getElementById("panel-combat").style.display = "block";
@@ -514,10 +526,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         
         let roll = Math.floor(Math.random() * 20) + 1;
         
-        // Identifica Classe do Monstro
         let cat = roll === 1 ? "Lendário" : (roll <= 4 ? "Raro" : (roll <= 12 ? "Forte" : "Normal"));
         
-        // Degradê de cor Baseado no valor (1 Vermelho Escuro - 20 Laranja)
         let perc = (roll - 1) / 19;
         let r = Math.round(139 + (116 * perc)); 
         let g = Math.round(0 + (165 * perc));   
@@ -561,7 +571,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         document.getElementById("viewport-container").style.backgroundImage = `url('${bgImg}')`;
         
         inCombat = true; 
-        document.getElementById("viewport-hero").style.display = "none"; 
+        document.getElementById("viewport-hero").style.display = "block"; 
         document.getElementById("hud-enemy").style.display = "block"; 
         document.getElementById("viewport-actions").style.display = "flex";
         document.getElementById("panel-combat").style.display = "block";
@@ -707,13 +717,20 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         let toExplode = [idx]; let r = Math.floor(idx / 6); let c = idx % 6;
         if (r > 0) toExplode.push(idx - 6); if (r < 4) toExplode.push(idx + 6); if (c > 0) toExplode.push(idx - 1); if (c < 5) toExplode.push(idx + 1); 
         let expPotionCount = 0;
+        
+        let regenPerc = 1 - (0.25 - ((turn - 1) * 0.01));
+
         toExplode.forEach(i => {
             let t = puzzleBoardData[i];
             if (t && t !== "⚡") {
                 if (t === "⚔️") { spawnFloatingText(i, "ATK", "#ef4444"); if (isMonsterTurn) { enemySwordsCount++; monsterRoundAtk += (2 + Math.floor(turn * 0.3)); } else { heroRoundAtk += Math.max(1, Math.floor(player.baseAtk / 3)); } }
                 if (t === "🔥") { spawnFloatingText(i, "FOGO", "#ea580c"); if (isMonsterTurn) { enemySwordsCount++; monsterRoundAtk += (4 + Math.floor(turn * 0.4)); } else { heroRoundAtk += Math.max(2, Math.floor(player.baseAtk / 2.5)); } }
                 if (t === "🛡️") { spawnFloatingText(i, "DEF", "#3b82f6"); if (isMonsterTurn) { monsterRoundDef += 2 + Math.floor(turn * 0.2); } else { heroRoundDef += 2 + Math.floor(player.baseDef / 2); } }
-                if (t === "❤️") { if (!isMonsterTurn) player.hp = Math.min(player.maxHp, player.hp + 3); else enemy.hp = Math.min(enemy.maxHp, enemy.hp + 1); spawnFloatingText(i, "VIDA", "#22c55e"); }
+                if (t === "❤️") { 
+                    if (!isMonsterTurn) { player.hp = Math.min(player.maxHp, player.hp + 3); } 
+                    else { enemy.hp = Math.min(enemy.maxHp, enemy.hp + Math.max(1, Math.round(3 * regenPerc))); } 
+                    spawnFloatingText(i, "VIDA", "#22c55e"); 
+                }
                 if (t === "🪙" && !isMonsterTurn) { player.gold += 1; spawnFloatingText(i, "OURO", "#fbbf24"); }
                 if (t === "💧" && !isMonsterTurn) { expPotionCount++; spawnFloatingText(i, "+MP", "#3b82f6"); }
             }
@@ -778,6 +795,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
         if (matched.size > 0) {
             if (matched.size >= 4) audioTriggeredSize = 4;
+            let regenPerc = 1 - (0.25 - ((turn - 1) * 0.01));
+
             matched.forEach(idx => {
                 let element = document.getElementById(`tile-${idx}`); if (element) element.classList.add("tile-matched"); 
                 let type = puzzleBoardData[idx]; if (type === "🪙") coinMatchedCount++; if (type === "💧") potionCount++;
@@ -794,7 +813,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                     if (type === "⚔️") { if(isMonsterTurn) monsterRoundAtk += (2 + Math.floor(turn * 0.3)); else heroRoundAtk += Math.max(1, Math.floor(player.baseAtk / 3)); } 
                     if (type === "🔥") { if(isMonsterTurn) monsterRoundAtk += (4 + Math.floor(turn * 0.4)); else heroRoundAtk += Math.max(2, Math.floor(player.baseAtk / 2.5)); }
                     if (type === "🛡️") { if(isMonsterTurn) monsterRoundDef += 2 + Math.floor(turn * 0.2); else heroRoundDef += 2 + Math.floor(player.baseDef / 2); }
-                    if (type === "❤️") { if (!isMonsterTurn) player.hp = Math.min(player.maxHp, player.hp + 3); else enemy.hp = Math.min(enemy.maxHp, enemy.hp + 1); } 
+                    if (type === "❤️") { if (!isMonsterTurn) player.hp = Math.min(player.maxHp, player.hp + 3); else enemy.hp = Math.min(enemy.maxHp, enemy.hp + Math.max(1, Math.round(3 * regenPerc))); } 
                     if (type === "🪙" && !isMonsterTurn) player.gold += 1;
                     puzzleBoardData[idx] = null; 
                 });
@@ -894,8 +913,17 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         
         document.getElementById("viewport-target").style.display = "none"; 
         document.getElementById("viewport-container").style.backgroundImage = "url('assets/img/win.png')"; 
-        document.getElementById("viewport-hero").style.display = "block"; 
         document.getElementById("viewport-actions").style.display = "none";
+        
+        // Força exibição central do Herói sobre a tela Win.png
+        const heroImg = document.getElementById("viewport-hero");
+        heroImg.style.display = "block";
+        heroImg.style.zIndex = "100";
+        heroImg.style.left = "50%";
+        heroImg.style.transform = "translateX(-50%)";
+        heroImg.style.bottom = "30px";
+        heroImg.style.width = "40%";
+
         showMessage(`VITÓRIA! Ouro coletado: +${drop}G`); 
         
         playVictorySound();
@@ -911,8 +939,9 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     function usePotion(type) {
         if (isMonsterTurn) return; 
         try { playSelectionSound(); } catch(e) {}
-        if (type === 'hp' && player.potHp > 0) { player.hp = Math.min(player.maxHp, player.hp + 40); player.potHp--; playPotionSound(); }
-        else if (type === 'mp' && player.potMp > 0) { player.mp = Math.min(player.maxMp, player.mp + 20); player.potMp--; playPotionSound(); }
+        // Curas penalizadas em 30% conforme pedido: (Cura 28, Mana 14)
+        if (type === 'hp' && player.potHp > 0) { player.hp = Math.min(player.maxHp, player.hp + 28); player.potHp--; playPotionSound(); }
+        else if (type === 'mp' && player.potMp > 0) { player.mp = Math.min(player.maxMp, player.mp + 14); player.potMp--; playPotionSound(); }
         updateUI();
     }
 
@@ -933,11 +962,12 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     function closeShop() { try{playSelectionSound();}catch(e){} changeScreen("screen-main"); updateAccumulatorsUI(); updateUI(); saveGame(); }
 
     function buyItem(itemType) {
-        let mpPrice = player.class === 'mage' ? 20 : 25; let bought = false;
-        if (itemType === 'pot_hp' && player.gold >= 30) { player.gold -= 30; player.potHp++; bought = true; } 
+        // Preços aumentados em 15% (Arredondados para cima na variável)
+        let mpPrice = player.class === 'mage' ? 23 : 29; let bought = false;
+        if (itemType === 'pot_hp' && player.gold >= 35) { player.gold -= 35; player.potHp++; bought = true; } 
         else if (itemType === 'pot_mp' && player.gold >= mpPrice) { player.gold -= mpPrice; player.potMp++; bought = true; }
-        else if (itemType === 'weapon' && player.gold >= shopPrices.weapon) { player.gold -= shopPrices.weapon; player.baseAtk += 3; shopPrices.weapon += 50; bought = true; }
-        else if (itemType === 'armor' && player.gold >= shopPrices.armor) { player.gold -= shopPrices.armor; player.baseDef += 3; shopPrices.armor += 50; bought = true; }
+        else if (itemType === 'weapon' && player.gold >= shopPrices.weapon) { player.gold -= shopPrices.weapon; player.baseAtk += 3; shopPrices.weapon += 58; bought = true; }
+        else if (itemType === 'armor' && player.gold >= shopPrices.armor) { player.gold -= shopPrices.armor; player.baseDef += 3; shopPrices.armor += 58; bought = true; }
         
         if (bought) {
             playBuySound();
@@ -954,7 +984,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             
             document.getElementById("ui-gold").innerText = player.gold; document.getElementById("ui-pot-hp").innerText = player.potHp; document.getElementById("ui-pot-mp").innerText = player.potMp;
             
-            let mpPrice = player.class === 'mage' ? 20 : 25;
+            let mpPrice = player.class === 'mage' ? 23 : 29;
             document.getElementById("btn-shop-potmp").innerText = `${mpPrice}G`; document.getElementById("btn-shop-weapon").innerText = `${shopPrices.weapon}G`; document.getElementById("btn-shop-armor").innerText = `${shopPrices.armor}G`;
             document.getElementById("shop-ui-gold").innerText = `${player.gold}G`; 
             
