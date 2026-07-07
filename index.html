@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rpg-awesome/0.2.0/css/rpg-awesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-:root{--gba-bg-dark:rgba(18,24,38,0.95);--gba-ui-box:#242e42;--gba-text-light:#e2e8f0;--gba-gold:#fbbf24;--gba-border:#475569;--bg-hp-grad:linear-gradient(90deg,#ef4444,#22c55e);--bg-mp-grad:linear-gradient(90deg,#3b82f6,#06b6d4);--bg-enemy-grad:linear-gradient(90deg,#a855f7,#ec4899);}
+:root{--gba-bg-dark:rgba(18,24,38,0.95);--gba-ui-box:#242e42;--gba-text-light:#e2e8f0;--gba-gold:#fbbf24;--gba-border:#475569;--bg-hp-grad:linear-gradient(90deg,#ef4444,#22c55e);--bg-mp-grad:linear-gradient(90deg,#3b82f6,#06b6d4);--bg-enemy-grad:linear-gradient(90deg,#7f1d1d,#ef4444);}
 *{font-family:'Press Start 2P',monospace;box-sizing:border-box;user-select:none;}
 body{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/img/open.png') no-repeat center center fixed;background-size:cover;color:var(--gba-text-light);display:flex;justify-content:center;align-items:center;height:100vh;width:100vw;margin:0;padding:10px;overflow:hidden;}
 #game-layout{display:flex;flex-direction:column;width:100%;max-width:450px;height:100%;max-height:850px;position:relative;}
@@ -24,7 +24,7 @@ body{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/img
 #screen-splash{background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.5)),url('assets/img/open4.png') no-repeat center center;background-size:cover;position:relative;height:100%;width:100%;align-items:center;}
 .splash-logo-area{margin-top:40px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;position:relative;height:auto;min-height:120px;}
 .splash-logo-area h1{position:relative;z-index:2;font-size:24px;color:var(--gba-gold);text-shadow:3px 3px 0 #000;margin:100px 0 0 0;line-height:1.3;}
-.splash-text-container{flex-grow:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:60px;}
+.splash-text-container{flex-grow:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:50px;}
 .blink-text{font-size:9px;color:var(--gba-text-light);text-shadow:2px 2px 0 #000;text-align:center;letter-spacing:1px;animation:pulseFade 1.8s infinite ease-in-out;}
 @keyframes pulseFade{0%{opacity:0.1;}50%{opacity:1;}100%{opacity:0.1;}}
 .credits-text{font-size:6px;color:#cbd5e1;margin-bottom:15px;text-shadow:1px 1px 0 #000;text-align:center;line-height:1.5;}
@@ -32,7 +32,6 @@ body{background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('assets/img
 h2,h3{text-align:center;color:var(--gba-text-light);margin-top:0;font-size:10px;line-height:1.5;}
 hr{border:0;height:4px;background:var(--gba-border);margin:8px 0;box-shadow:0 2px 0 #000;}
 
-/* GRID INTERCALADO COM AS COLUNAS IGUAIS */
 .stats-grid{display:grid;grid-template-columns:1fr 2fr;background:#1e293b;padding:10px;border:3px solid var(--gba-border);border-radius:8px;gap:6px;align-items:center;}
 .stat-box{font-size:8px;line-height:1.6;}
 .hero-header-line{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
@@ -53,6 +52,7 @@ input[type="text"]{background:#0f172a;color:var(--gba-gold);border:3px solid var
 input::placeholder{color:#475569;}
 
 .bar-container{background:#0f172a;border:2px solid var(--gba-border);border-radius:10px;height:8px;width:100%;margin:4px 0 8px 0;overflow:hidden;}
+.bar-container-stats{background:#0f172a;border:2px solid var(--gba-border);border-radius:10px;height:16px;width:100%;margin:4px 0 8px 0;overflow:hidden;}
 .bar-fill{height:100%;width:100%;border-radius:10px;transition:width 0.3s cubic-bezier(0.4,0,0.2,1);}
 .bar-hp{background:var(--bg-hp-grad);} .bar-mp{background:var(--bg-mp-grad);} .bar-enemy{background:var(--bg-enemy-grad);}
 
@@ -62,7 +62,6 @@ input::placeholder{color:#475569;}
 #viewport-hero{position:absolute;bottom:10px;left:45px;width:32.5%;height:auto;image-rendering:pixelated;z-index:5;}
 #viewport-target{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:35%;height:auto;image-rendering:pixelated;z-index:6; transition: transform 0.15s ease-in-out, filter 0.15s ease-in-out;}
 
-/* Animação Crítico Monstro (Dano >= 4) */
 .monster-crit-anim { transform: translateX(-50%) scale(1.2) !important; filter: drop-shadow(0 0 15px #ef4444); }
 
 .combat-arena-hud{position:absolute;top:8px;left:5%;width:90%;background:rgba(15,23,42,0.85);border:2px solid var(--gba-gold);border-radius:6px;padding:6px 10px;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,0.5);}
@@ -70,7 +69,6 @@ input::placeholder{color:#475569;}
 
 #viewport-actions { position:absolute; right:5px; bottom:5px; display:flex; flex-direction:column; gap:4px; z-index:10; width:65px; }
 
-/* CONTAINER DO INDICADOR DE TURNOS (Quadradinhos + Texto, mesmo tamanho) */
 .turn-display-wrapper { position:absolute; left:5px; bottom:5px; z-index:10; display:flex; flex-direction:column; gap:4px; width: 75px; }
 .moves-indicator { display:flex; gap:2px; width:100%; }
 .move-square { flex:1; height:6px; border:1px solid #fff; border-radius:2px; box-shadow:1px 1px 0 #000; transition:background-color 0.3s, opacity 0.3s; }
@@ -119,7 +117,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 #highscores-board { margin-top: 25px; font-size: 7px; text-align: center; text-shadow: 1px 1px 0 #000; line-height: 1.8; z-index: 2; width: 100%; }
 </style>
 </head>
-<body onclick="initAudioContext()">
+<body>
 
 <div id="game-layout">
 
@@ -128,16 +126,15 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         <div id="d20-result-text" style="display: none; font-size: 45px; text-shadow: 4px 4px 0 #000; font-weight: bold; text-align:center;"></div>
     </div>
 
-    <!-- TELA 1: SPLASH COM MÚSICA MELANCÓLICA E RESET REPOSICIONADO -->
+    <!-- TELA 1: SPLASH LÓGICA DE 2 TOQUES -->
     <div id="screen-splash" class="screen active" onclick="handleSplashClick(event)">
         <div class="splash-logo-area">
             <h1>RPG BATTLES</h1>
             <div id="highscores-board"></div>
         </div>
         <div class="splash-text-container">
-            <div class="blink-text">TOQUE PARA INICIAR</div>
+            <div class="blink-text" id="splash-blink-text">TOQUE PARA INICIAR</div>
         </div>
-        <!-- Reset botão sutil abaixo -->
         <button class="btn-stone" onclick="resetGameData(event)" style="position:absolute; bottom:15px; padding:6px 12px; font-size:6px; z-index:10; opacity:0.8; background:rgba(0,0,0,0.5)!important; border-color:#334155!important;"><i class="fa fa-trash"></i> RESETAR DADOS</button>
     </div>
 
@@ -180,23 +177,20 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 <div style="font-size: 7px; color: var(--gba-gold); text-shadow:1px 1px 0 #000; text-align: right; margin-bottom: 6px; border-bottom: 1px dashed var(--gba-border); padding-bottom: 4px;">
                     <i class="ra ra-gold-bar"></i> <span id="ui-gold">40</span>G | H:<span id="ui-pot-hp">1</span> M:<span id="ui-pot-mp">1</span>
                 </div>
-                <!-- BARRAS INTERCALADAS (SEM PALAVRAS) -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                     <div>
-                        <!-- HERÓI AZUL / MONSTRO VERMELHO -->
                         <strong style="color: #60a5fa; font-size: 6.5px; text-shadow:1px 1px 0 #000;">ATK: <span id="ui-round-atk-hero">0</span></strong>
-                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-atk-hero" class="bar-fill" style="background: linear-gradient(90deg, #1d4ed8, #60a5fa); width:0%;"></div></div>
+                        <div class="bar-container-stats"><div id="bar-round-atk-hero" class="bar-fill" style="background: linear-gradient(90deg, #1d4ed8, #60a5fa); width:0%;"></div></div>
                         
                         <strong style="color: #f87171; font-size: 6.5px; text-shadow:1px 1px 0 #000; display:block; margin-top:6px;">DEF: <span id="ui-round-def-monster">0</span></strong>
-                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-def-monster" class="bar-fill" style="background: linear-gradient(90deg, #7f1d1d, #ef4444); width:0%;"></div></div>
+                        <div class="bar-container-stats"><div id="bar-round-def-monster" class="bar-fill" style="background: linear-gradient(90deg, #7f1d1d, #ef4444); width:0%;"></div></div>
                     </div>
                     <div>
-                        <!-- HERÓI AZUL / MONSTRO VERMELHO -->
                         <strong style="color: #60a5fa; font-size: 6.5px; text-shadow:1px 1px 0 #000;">DEF: <span id="ui-round-def-hero">0</span></strong>
-                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-def-hero" class="bar-fill" style="background: linear-gradient(90deg, #1e3a8a, #3b82f6); width:0%;"></div></div>
+                        <div class="bar-container-stats"><div id="bar-round-def-hero" class="bar-fill" style="background: linear-gradient(90deg, #1e3a8a, #3b82f6); width:0%;"></div></div>
                         
                         <strong style="color: #f87171; font-size: 6.5px; text-shadow:1px 1px 0 #000; display:block; margin-top:6px;">ATK: <span id="ui-round-atk-monster">0</span></strong>
-                        <div class="bar-container" style="margin:2px 0;"><div id="bar-round-atk-monster" class="bar-fill" style="background: linear-gradient(90deg, #b91c1c, #f87171); width:0%;"></div></div>
+                        <div class="bar-container-stats"><div id="bar-round-atk-monster" class="bar-fill" style="background: linear-gradient(90deg, #b91c1c, #f87171); width:0%;"></div></div>
                     </div>
                 </div>
             </div>
@@ -216,13 +210,11 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             <img id="viewport-hero" src="" onerror="this.style.display='none'">
             <img id="viewport-target" src="" style="display:none;" onerror="this.style.display='none'">
             
-            <!-- QUADRADINHOS + TURNO NO CANTO ESQUERDO -->
             <div class="turn-display-wrapper">
                 <div class="moves-indicator" id="moves-indicator"></div>
-                <div class="turn-display-combat">TURNO <span id="ui-turn">1</span> / 25</div>
+                <div class="turn-display-combat"><span id="ui-turn">1</span> / 25</div>
             </div>
             
-            <!-- BOTÕES NO CANTO DIREITO INFERIOR -->
             <div id="viewport-actions" style="display:none;">
                 <button class="btn-stone" onclick="usePotion('hp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-health" style="color:#22c55e"></i> CURA</button>
                 <button class="btn-stone" onclick="usePotion('mp')" style="padding: 6px; font-size: 7px; margin: 0; width: 100%;"><i class="ra ra-potion" style="color:#3b82f6"></i> MANA</button>
@@ -244,7 +236,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         </div>
     </div>
 
-    <!-- TELA DA LOJA REDESENHADA -->
+    <!-- TELA DA LOJA -->
     <div id="screen-shop" class="screen game-card">
         <h1 style="margin-bottom: 6px;">MERCADOR</h1>
         
@@ -323,7 +315,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         }
     }
 
-    // NOVOS CENÁRIOS ADICIONADOS
     const cenariosDb = {
         "cen_pantano1": { img: "assets/img/cen_pantano1.png" },
         "cen_pantano2": { img: "assets/img/cen_pantano2.png" },
@@ -338,14 +329,13 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         "cen_plan2": { img: "assets/img/cen_plan2.png" }
     };
 
-    // A Pedra "🪨" mantida na metade da proporção média
     const tilePool = ["⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️","⚔️", "🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️","🛡️", "❤️","❤️","❤️","❤️","❤️","❤️","❤️","❤️","❤️","❤️", "🪙","🪙","🪙","🪙","🪙","🪙","🪙","🪙", "💧","💧","💧","💧","💧","💧", "🔥","🔥","🔥","🔥","🔥","🔥", "🪨","🪨","🪨","🪨"]; 
 
     let player = { name: "", class: "knight", hp: 100, maxHp: 100, mp: 60, maxMp: 60, gold: 40, baseAtk: 10, baseDef: 2, potHp: 1, potMp: 1, avatarPath: "" };
     let shopPrices = { weapon: 115, armor: 115 }; let stats = { normalKills: 0, bossKills: 0 };
     let enemy = null; let turn = 1; let inCombat = false; let selectedClassSetup = "knight";
 
-    let puzzleMoves = 5; let puzzleBoardData = []; let selectedTileIndex = null;
+    let puzzleMoves = 6; let puzzleBoardData = []; let selectedTileIndex = null;
     let heroRoundAtk = 0; let heroRoundDef = 0; let monsterRoundAtk = 0; let monsterRoundDef = 0;
 
     let fallingIndices = new Set(); let isMonsterTurn = false; let isProcessingAnimations = false; let gridLocked = false;
@@ -356,6 +346,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     let audioCtx = null;
     let bgmOsc = null;
     let bgmPlaying = false;
+    let splashClickedOnce = false;
 
     function resetGameData(e) {
         e.stopPropagation();
@@ -381,7 +372,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         if (!container) return;
         container.innerHTML = "";
         let color = isMonsterTurn ? "#ef4444" : "#3b82f6";
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             let sq = document.createElement("div");
             sq.className = "move-square";
             if (i < puzzleMoves) {
@@ -421,10 +412,20 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         if (bgmOsc) { try { bgmOsc.stop(); } catch(e){} bgmOsc = null; bgmPlaying = false; }
     }
 
+    // LÓGICA DE 2 TOQUES PARA FUNCIONAR BEM COM O ÁUDIO NOS NAVEGADORES
     function handleSplashClick(e) {
         if (!audioCtx || audioCtx.state === 'suspended') initAudioContext();
-        if (!bgmPlaying) playMelancholicBGM();
-        setTimeout(() => { goToClassSelection(); }, 500);
+        
+        if (!splashClickedOnce) {
+            splashClickedOnce = true;
+            playMelancholicBGM();
+            let blinkText = document.getElementById('splash-blink-text');
+            if(blinkText) blinkText.innerText = "TOQUE NOVAMENTE PARA INICIAR";
+        } else {
+            stopBGM();
+            changeScreen("screen-start");
+            try { playSelectionSound(); } catch(err) {}
+        }
     }
 
     function playSelectionSound() { try { if (!audioCtx) initAudioContext(); let now = audioCtx.currentTime; let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain(); osc.type = 'triangle'; osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(300, now + 0.1); osc.connect(gain); gain.connect(audioCtx.destination); gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.001, now + 0.1); osc.start(now); osc.stop(now + 0.1); } catch(e) {} }
@@ -448,7 +449,8 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
                 osc.type = 'triangle'; osc.frequency.setValueAtTime(f, now + i * 0.1);
                 osc.connect(gain); gain.connect(audioCtx.destination);
-                gain.gain.setValueAtTime(0.2, now + i * 0.1); gain.gain.linearRampToValueAtTime(0, now + i * 0.1 + 0.3);
+                gain.gain.setValueAtTime(0.2, now + i * 0.1); 
+                gain.gain.linearRampToValueAtTime(0, now + i * 0.1 + 0.3);
                 osc.start(now + i * 0.1); osc.stop(now + i * 0.1 + 0.3);
             });
         } catch(e) {}
@@ -458,12 +460,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     function playPotionSound() { try { if (!audioCtx) initAudioContext(); let now = audioCtx.currentTime; let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(400, now); osc.frequency.exponentialRampToValueAtTime(800, now + 0.3); osc.connect(gain); gain.connect(audioCtx.destination); gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0.001, now + 0.3); osc.start(now); osc.stop(now + 0.3); } catch(e) {} }
     function playBuySound() { try { if (!audioCtx) initAudioContext(); let now = audioCtx.currentTime; let freqs = [1200, 1600]; freqs.forEach((f, i) => { let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain(); osc.type = 'square'; osc.frequency.setValueAtTime(f, now + i*0.1); osc.connect(gain); gain.connect(audioCtx.destination); gain.gain.setValueAtTime(0.15, now + i*0.1); gain.gain.linearRampToValueAtTime(0.001, now + 0.1 + i*0.1); osc.start(now + i*0.1); osc.stop(now + 0.1 + i*0.1); }); } catch(e) {} }
     function playMagicSound() { try { if (!audioCtx) initAudioContext(); let now = audioCtx.currentTime; let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(800, now); osc.frequency.exponentialRampToValueAtTime(100, now + 0.4); osc.connect(gain); gain.connect(audioCtx.destination); gain.gain.setValueAtTime(0.25, now); gain.gain.linearRampToValueAtTime(0.001, now + 0.4); osc.start(now); osc.stop(now + 0.4); } catch(e) {} }
-
-    function goToClassSelection() {
-        stopBGM();
-        changeScreen("screen-start");
-        try { playSelectionSound(); } catch(e) {}
-    }
 
     function changeScreen(screenId) { 
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
@@ -504,7 +500,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     function startNextStage() {
         document.getElementById("panel-combat").style.display = "none";
         
-        // Esconde o herói para não vazar a imagem no meio da transição
         const heroImg = document.getElementById("viewport-hero");
         heroImg.src = player.avatarPath; 
         heroImg.style.display = "none"; 
@@ -580,7 +575,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
             hp = [70, 75, 80][Math.floor(Math.random()*3)]; img = "balrog.png"; name = "Gorthaur, o Balrog"; 
         } else if (cat === "Forte") { 
             hp = Math.floor(Math.random() * 16) + 50; 
-            // Novo Inimigo Forte Adicionado aqui
             let opts = [{i:"lob1.png", n:"Fenrir, Lobo Sanguinário"}, {i:"ara1.png", n:"Arachne, a Viúva Negra"}, {i:"troll1.png", n:"Trundle, Troll da Montanha"}, {i:"ogro1.png", n:"Grommash, o Ogro Esmagador"}];
             let p = opts[Math.floor(Math.random()*opts.length)]; img = p.i; name = p.n;
         } else { 
@@ -640,7 +634,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
     }
 
     function startTurnFlow(isMonster) {
-        isMonsterTurn = isMonster; gridLocked = true; puzzleMoves = 5; enemySwordsCount = 0; 
+        isMonsterTurn = isMonster; gridLocked = true; puzzleMoves = 6; enemySwordsCount = 0; 
         updateMovesIndicator(); 
         let banner = document.getElementById("turn-banner"); banner.innerText = isMonster ? "TURNO DO INIMIGO" : "SEU TURNO"; banner.style.backgroundColor = isMonster ? "rgba(220, 38, 38, 0.95)" : "rgba(37, 99, 235, 0.95)"; banner.style.display = "block";
         generateRandomBoard(); renderPuzzleUI();
@@ -691,7 +685,6 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         boardElement.innerHTML = newHTML;
     }
 
-    // Suporte Total Drag-n-Drop e Touch para Computador e Mobile
     document.addEventListener("DOMContentLoaded", () => {
         const boardElement = document.getElementById("combat-puzzle-board");
         
@@ -769,7 +762,10 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
         let expPotionCount = 0;
         let stoneMatched = false;
         
-        let regenPerc = 1 - (0.25 - ((turn - 1) * 0.01));
+        let regenPerc = 1.0;
+        if (turn <= 10) regenPerc = 0.5;
+        else if (turn <= 20) regenPerc = 0.7;
+        else if (turn <= 24) regenPerc = 0.9;
 
         toExplode.forEach(i => {
             let t = puzzleBoardData[i];
@@ -856,7 +852,11 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
 
         if (matched.size > 0) {
             if (matched.size >= 4) audioTriggeredSize = 4;
-            let regenPerc = 1 - (0.25 - ((turn - 1) * 0.01));
+            
+            let regenPerc = 1.0;
+            if (turn <= 10) regenPerc = 0.5;
+            else if (turn <= 20) regenPerc = 0.7;
+            else if (turn <= 24) regenPerc = 0.9;
 
             matched.forEach(idx => {
                 let element = document.getElementById(`tile-${idx}`); if (element) element.classList.add("tile-matched"); 
@@ -867,7 +867,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                 if (type === "🪨") { spawnFloatingText(idx, "EMBARALHOU!", "#94a3b8"); stoneMatched = true; }
             });
 
-            // Efeito visual do Monstro (Ataque Crítico com combo de 4 ou mais lâminas/fogo)
+            // Animação Crítico Monstro
             if (isMonsterTurn && enemyAttackTiles >= 4) {
                 let tgt = document.getElementById("viewport-target");
                 if (tgt) {
@@ -889,7 +889,7 @@ button:disabled{background:#475569!important;color:#94a3b8!important;border-colo
                     if (type === "🪙" && !isMonsterTurn) player.gold += 1;
                     puzzleBoardData[idx] = null; 
                 });
-                if (!isMonsterTurn && potionCount > 0) { let mpGain = potionCount >= 4 ? 4 : 3; player.mp = Math.min(player.maxMp, player.mp + mpGain); }
+                if (!isMonsterTurn && potionCount > 0) { let mpGain = potionCount >= 4 ? 4 : 3; player.mp = Math.min(player.maxMp, player.mp + Math.min(mpGain, 4)); }
                 squareAnchors.forEach(idx => { puzzleBoardData[idx] = "⚡"; }); 
                 
                 if (stoneMatched) {
